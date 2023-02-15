@@ -1,10 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Home } from './Home';
+
 import { NotFound } from '../error/404';
 import { LoginPage } from './LoginPage';
 import { RegisterPage } from './RegisterPage';
 import { OAuthRedirectPage } from './OAuthRedirectPage';
+import Home from '../with-token/Home';
 
 export default function WithoutTokenRouter() {
   return (

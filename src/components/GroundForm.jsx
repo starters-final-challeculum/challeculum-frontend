@@ -35,7 +35,7 @@ function GroundForm() {
         </select>
       </HalfSelectBox>
       <SelectBox>
-        <label htmlFor="title" className="text-xs font-semibold px-1">Title</label>
+        <span className="text-xs font-semibold px-1">Title</span>
         <input
           type="title"
           className="w-full pl-2.5 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none"
@@ -79,16 +79,15 @@ function GroundForm() {
       </HalfSelectBox>
 
       <SelectBox>
-        <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900">
+        <span className="block mb-2 text-sm font-medium text-gray-900">
           강의정보
-        </label>
+        </span>
         <textarea
           id="message"
           rows="4"
           className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
           placeholder="강의와 그라운드에 대한 정보를 입력해주세요!"
         />
-
       </SelectBox>
       <MissionList />
 
