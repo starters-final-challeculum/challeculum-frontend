@@ -1,18 +1,19 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Home } from '../without-token/Home';
-import { NotFound } from '../error/404';
+import GroundDetailPage from './GroundDetailPage';
+import CreateGroundPage from './CreateGroundPage';
+import Home from './Home';
 
-export default function WithTokenRouter() {
+function WithTokenRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route key={1} path="/" element={<Home />} />
-        {/* <Route key={2} path="/profile" element={<ProfilePage />} /> */}
-        {/* <Route key={3} path="/ground/:id" element={<GroundDetailPage />} /> */}
-        {/* <Route key={4} path="/create-ground" element={<CreateGroundPage />} /> */}
-        <Route element={<NotFound />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/groundDetail" element={<GroundDetailPage />} />
+        <Route path="/createGround" element={<CreateGroundPage />} />
+        {/* <Route element={<NotFound />} /> */}
       </Routes>
     </BrowserRouter>
   );
 }
+export default WithTokenRouter;

@@ -29,5 +29,6 @@ module.exports = {
     'import/resolver': {
       node: {},
     },
+    'jsx-a11y/label-has-associated-control': [2, { labelAttributes: ['htmlFor'] }],
   },
 };
