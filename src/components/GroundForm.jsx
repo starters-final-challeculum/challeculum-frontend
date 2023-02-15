@@ -1,6 +1,6 @@
 import React from 'react';
 import tw from 'tailwind-styled-components';
-import CreateList from './Mission/CreateList';
+import MissionList from './MissionList';
 
 function GroundForm() {
   // const [title, setTitle] = useState('');
@@ -16,7 +16,7 @@ function GroundForm() {
     <div className="px-4 py-3 mb-8 bg-mWhite rounded-lg">
 
       <HalfSelectBox>
-        <span>카테고리 선택</span>
+        <span className="grid grid-cols">카테고리 선택</span>
         <select className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none">
           <option>IT</option>
           <option>외국어</option>
@@ -90,9 +90,9 @@ function GroundForm() {
         />
 
       </SelectBox>
-      <CreateList />
+      <MissionList />
 
-      <button type="submit" className="bg-black hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      <button type="submit" className="bg-black hover:bg-blue-700 text-white font-bold py-2 px-4 mt-5 rounded w-1/2 grid place-items-center">
         등록
       </button>
     </div>
@@ -100,7 +100,7 @@ function GroundForm() {
 }
 
 const HalfSelectBox = tw.div`
-grid gap-6 mb-8 md:grid-cols-2
+grid gap-6 mb-8 
 `;
 const SelectBox = tw.div`
 relative w-full lg:max-w-sm
