@@ -1,10 +1,13 @@
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import React from 'react';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 import { apiBaseUrl } from '../common/constants';
 
 export function LoginForm() {
   const { register, handleSubmit } = useForm();
+  const movePage = useNavigate();
   return (
     <form onSubmit={handleSubmit((data) => {
       axios.post(`${apiBaseUrl}/user/login`, data, {
@@ -13,10 +16,12 @@ export function LoginForm() {
         },
       })
         .then(({ data: { grantType, accessToken, refreshToken } }) => {
-          localStorage.setItem('Authorization', `${grantType} ${accessToken}`);
-          localStorage.setItem('refreshToken', refreshToken);
-          console.log(localStorage.getItem('Authorization'));
-          console.log(localStorage.getItem('refreshToken'));
+          Cookies.set('Authorization', `${grantType} ${accessToken}`);
+          Cookies.set('refreshToken', refreshToken);
+          movePage('/');
+        })
+        .catch(() => {
+          console.log('로그인 실패');
         });
     })}
     >

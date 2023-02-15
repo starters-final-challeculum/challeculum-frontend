@@ -23,5 +23,11 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/button-has-type': 'off',
+    'import/no-extraneous-dependencies': 'off',
+  },
+  settings: {
+    'import/resolver': {
+      node: {},
+    },
   },
 };

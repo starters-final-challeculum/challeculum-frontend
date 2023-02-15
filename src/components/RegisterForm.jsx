@@ -1,20 +1,25 @@
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { apiBaseUrl } from '../common/constants';
 
 export function RegisterForm() {
   const { register, handleSubmit } = useForm();
+  const movePage = useNavigate();
   return (
     <form onSubmit={handleSubmit((data) => {
-      console.log(JSON.stringify(data));
       axios.post(`${apiBaseUrl}/user`, data, {
         headers: {
           'Content-Type': 'application/json',
         },
       })
-        .then((response) => {
-          console.log(response);
+        .then(() => {
+          alert('회원가입 완료');
+          movePage('/');
+        })
+        .catch(() => {
+          alert('회원가입 실패');
         });
     })}
     >
@@ -72,7 +77,7 @@ export function RegisterForm() {
         placeholder="phone"
         className="input"
       />
-      <button> button </button>
+      <button> button</button>
     </form>
   );
 }
