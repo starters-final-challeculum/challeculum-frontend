@@ -1,107 +1,110 @@
 import React from 'react';
 import tw from 'tailwind-styled-components';
-import MissionList from './MissionList';
+import { useForm } from 'react-hook-form';
+import { Select } from './Select';
+import { MissionAdder } from './MissionAdder';
 
 function GroundForm() {
-  // const [title, setTitle] = useState('');
-  // const [category, setCategory] = useState('');
-  // const [information, setInformation] = useState('');
-  //
-  // const onSubmitHandler = (e) => {
-  //   e.preventDefault();
-  //   setTitle('');
-  // };
+  const { register, getValues } = useForm();
   return (
+    <form>
+      <HalfWidth>
+        <label className="grid grid-cols">
+          카테고리 선택
+          <Select register={register} name="category" options={['IT', '외국어', '자격증, 취미']} />
+        </label>
+      </HalfWidth>
 
-    <div className="px-4 py-3 mb-8 bg-mWhite rounded-lg">
+      <HalfWidth>
+        <label>
+          강의 선택
+          <Select register={register} name="lecture" options={['JAVA', 'SPANISH', 'JavaScript, React']} />
+        </label>
+      </HalfWidth>
 
-      <HalfSelectBox>
-        <span className="grid grid-cols">카테고리 선택</span>
-        <select className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none">
-          <option>IT</option>
-          <option>외국어</option>
-          <option>자격증</option>
-          <option>취미</option>
-        </select>
-      </HalfSelectBox>
-
-      <HalfSelectBox>
-        <span>강의 선택</span>
-        <select className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none">
-          <option>Java</option>
-          <option>Spanish</option>
-          <option>JavaScript</option>
-          <option>React</option>
-        </select>
-      </HalfSelectBox>
-      <SelectBox>
-        <span className="text-xs font-semibold px-1">Title</span>
-        <input
-          type="title"
-          className="w-full pl-2.5 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none"
-          placeholder="제목을 입력해주세요!"
-        />
-      </SelectBox>
+      <FullWidth>
+        <label>
+          타이틀
+          <BoundInput
+            type="text"
+            placeholder="제목을 입력해 주세요"
+            {...register('title', {
+              required: {
+                value: true,
+              },
+            })}
+          />
+        </label>
+      </FullWidth>
       <br />
-      <HalfSelectBox>
-        <span>강의 선택</span>
-        <input
-          type="number"
-          className="w-full pl-2.5 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none"
-          placeholder="참여인원"
-        />
-      </HalfSelectBox>
+      <HalfWidth>
+        <label>
+          최대 인원
+          <BoundInput
+            type="number"
+            placeholder="최대 인원"
+            {...register('maxCapacity', {
+              required: {
+                value: true,
+              },
+            })}
+          />
+        </label>
+      </HalfWidth>
 
-      <HalfSelectBox>
-        <span>예치금 선택</span>
-        <select className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none">
-          <option>1000</option>
-          <option>2000</option>
-          <option>3000</option>
-          <option>4000</option>
-          <option>5000</option>
-        </select>
-      </HalfSelectBox>
+      <HalfWidth>
+        <label>
+          예치금 선택
+          <Select register={register} name="deposit" options={[1000, 2000, 3000, 4000, 5000]} />
+        </label>
+      </HalfWidth>
 
-      <HalfSelectBox>
-        <span>시작 날짜</span>
-        <input
-          type="date"
-          className="w-full pl-2.5 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none"
-        />
-      </HalfSelectBox>
-      <HalfSelectBox>
-        <span>종료 날짜</span>
-        <input
-          type="date"
-          className="w-full pl-2.5 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none"
-        />
-      </HalfSelectBox>
+      <HalfWidth>
+        <label>
+          시작 날짜
+          <BoundInput
+            type="date"
+            {...register('startAt')}
+          />
+        </label>
+      </HalfWidth>
 
-      <SelectBox>
-        <span className="block mb-2 text-sm font-medium text-gray-900">
+      <HalfWidth>
+        <label>
+          종료 날짜
+          <BoundInput
+            type="date"
+            {...register('endAt')}
+          />
+        </label>
+      </HalfWidth>
+
+      <FullWidth>
+        <label>
           강의정보
-        </span>
-        <textarea
-          id="message"
-          rows="4"
-          className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-          placeholder="강의와 그라운드에 대한 정보를 입력해주세요!"
-        />
-      </SelectBox>
-      <MissionList />
-
-      <button type="submit" className="bg-black hover:bg-blue-700 text-white font-bold py-2 px-4 mt-5 rounded w-1/2 grid place-items-center">
-        등록
-      </button>
-    </div>
+          <Description
+            {...register('information')}
+            rows="4"
+            placeholder="강의와 그라운드에 대한 정보를 입력해주세요!"
+          />
+        </label>
+      </FullWidth>
+      <MissionAdder getValues={getValues} />
+    </form>
   );
 }
 
-const HalfSelectBox = tw.div`
-grid gap-6 mb-8 
-`;
-const SelectBox = tw.div`
-relative w-full lg:max-w-sm
-`;
+const HalfWidth = tw.div`
+        grid gap-6 mb-8
+        `;
+const FullWidth = tw.div`
+        relative w-full lg:max-w-sm
+        `;
+const Description = tw.textarea`
+        block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500
+        `;
+const BoundInput = tw.input`
+        w-full pl-2.5 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none
+        `;
+
 export default GroundForm;

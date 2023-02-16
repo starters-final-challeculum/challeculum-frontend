@@ -24,6 +24,9 @@ module.exports = {
     'react/jsx-props-no-spreading': 'off',
     'react/button-has-type': 'off',
     'import/no-extraneous-dependencies': 'off',
+    'react/prop-types': 'off',
+    'jsx-a11y/label-has-associated-control': 'off',
+    'react/no-array-index-key': 'off',
   },
   settings: {
     'import/resolver': {
