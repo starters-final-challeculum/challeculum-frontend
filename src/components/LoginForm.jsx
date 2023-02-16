@@ -15,12 +15,12 @@ export function LoginForm() {
         },
       })
         .then(({ data: { grantType, accessToken, refreshToken } }) => {
-        // .then(() => {
-          localStorage.set('Authorization', `${grantType} ${accessToken}`);
-          localStorage.set('RefreshToken', refreshToken);
+          localStorage.setItem('Authorization', `${grantType} ${accessToken}`);
+          localStorage.setItem('RefreshToken', refreshToken);
           navigate('/');
         })
-        .catch(() => {
+        .catch((error) => {
+          console.log(error);
           console.log('로그인 실패');
         });
     })}
