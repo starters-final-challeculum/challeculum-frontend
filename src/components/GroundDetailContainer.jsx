@@ -1,17 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { apiBaseUrl } from '../common/constants';
 
 function GroundDetailContainer() {
+  const param = useParams();
+  const [ground, setGround] = useState({});
+
+  const getGround = () => {
+    axios.get(`${apiBaseUrl}/ground/${param.groundId}`).then((response) => {
+      setGround(response.data);
+    });
+  };
+
+  useEffect(() => {
+    getGround();
+  }, []);
+
+  // 참여 신청시 userGround table 생성, 취소 신청시 is_attending false 변경
   return (
     <div>
-      그라운드 상세 조회 화면
-      <div>제목</div>
-      <div>카테고리</div>
-      <div>강의 정보</div>
-      <div>level</div>
-      <div>시작 전/후 확인- 날짜</div>
+      그라운드 상세 조회 화면 :
+      <div>
+        제목 :
+        {ground.title}
+      </div>
+      <div>카테고리 정보 :</div>
+      <div>
+        강의정보 :
+        {ground.information}
+      </div>
+      <div>
+        level:
+        {ground.level}
+      </div>
+      <div>
+        시작일 :
+        {ground.startAt}
+      </div>
+      <div>
+        종료일 :
+        {ground.endAt}
+      </div>
       <div>미션 현황 보기 - 리스트와 달성율</div>
       <button type="submit">참여하기/취소하기</button>
-      <div>남은 자리 확인</div>
+      <div>
+        남은 자리 :
+        {ground.maxCapacity}
+      </div>
     </div>
   );
 }
