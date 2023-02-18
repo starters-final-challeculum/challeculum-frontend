@@ -1,10 +1,9 @@
 import React from 'react';
-import Cookies from 'js-cookie';
 import WithoutTokenRouter from './router/WithoutTokenRouter';
 import WithTokenRouter from './router/WithTokenRouter';
 
 function App() {
-  const token = Cookies.get('Authorization');
+  const token = localStorage.getItem('Authorization');
   return (
     <div className="App">
       { token ? <WithTokenRouter /> : <WithoutTokenRouter />}
