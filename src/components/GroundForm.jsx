@@ -8,17 +8,11 @@ function GroundForm() {
   const { register, getValues } = useForm();
   return (
     <form>
-      <HalfWidth>
-        <label className="grid grid-cols">
-          카테고리 선택
-          <Select register={register} name="category" options={['IT', '외국어', '자격증, 취미']} />
-        </label>
-      </HalfWidth>
-
+      가
       <HalfWidth>
         <label>
           강의 선택
-          <Select register={register} name="lecture" options={['JAVA', 'SPANISH', 'JavaScript, React']} />
+          <Select register={register} name="lectureId" options={[1, 2, 3, 4]} />
         </label>
       </HalfWidth>
 
@@ -36,7 +30,25 @@ function GroundForm() {
           />
         </label>
       </FullWidth>
-      <br />
+
+      <FullWidth>
+        <label>
+          강의정보
+          <Description
+            {...register('information')}
+            rows="4"
+            placeholder="강의와 그라운드에 대한 정보를 입력해주세요!"
+          />
+        </label>
+      </FullWidth>
+
+      <HalfWidth>
+        <label>
+          그라운드 레벨
+          <Select register={register} name="level" options={[1, 2, 3]} />
+        </label>
+      </HalfWidth>
+
       <HalfWidth>
         <label>
           최대 인원
@@ -44,6 +56,21 @@ function GroundForm() {
             type="number"
             placeholder="최대 인원"
             {...register('maxCapacity', {
+              required: {
+                value: true,
+              },
+            })}
+          />
+        </label>
+      </HalfWidth>
+
+      <HalfWidth>
+        <label>
+          미션 실패 면제 횟수
+          <BoundInput
+            type="number"
+            placeholder="면제 횟수"
+            {...register('missionFailLimit', {
               required: {
                 value: true,
               },
@@ -79,16 +106,6 @@ function GroundForm() {
         </label>
       </HalfWidth>
 
-      <FullWidth>
-        <label>
-          강의정보
-          <Description
-            {...register('information')}
-            rows="4"
-            placeholder="강의와 그라운드에 대한 정보를 입력해주세요!"
-          />
-        </label>
-      </FullWidth>
       <MissionAdder getValues={getValues} />
     </form>
   );
