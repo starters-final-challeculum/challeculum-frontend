@@ -2,7 +2,7 @@ import React from 'react';
 import tw from 'tailwind-styled-components';
 
 // eslint-disable-next-line react/prop-types
-function Layout({ children }) {
+function Container({ children }) {
   return (
     <Base>
       <Main>{children}</Main>
@@ -30,4 +30,4 @@ const Main = tw.main`
 
   
 `;
-export default Layout;
+export default Container;

@@ -1,7 +1,7 @@
 import React from 'react';
 import tw from 'tailwind-styled-components';
 import { useForm } from 'react-hook-form';
-import { Select } from './Select';
+import { Select } from '../../common/elements/Select';
 import { MissionAdder } from './MissionAdder';
 
 function GroundForm() {

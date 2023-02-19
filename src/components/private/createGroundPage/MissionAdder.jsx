@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm, useFieldArray } from 'react-hook-form';
 import axios from 'axios';
 import { TiMinusOutline } from 'react-icons/ti';
-import { apiBaseUrl } from '../common/constants';
+import { apiBaseUrl } from '../../../common/globalConstants';
 
 export function MissionAdder({ getValues }) {
   const {

@@ -1,7 +1,8 @@
 import React from 'react';
-import { LoginForm } from '../../components/LoginForm';
+import { LoginForm } from '../../components/public/loginPage/LoginForm';
+import { withLayout } from '../../components/common/layout/Layout';
 
-export function LoginPage() {
+function LoginPage() {
   return (
     <div>
       <LoginForm />
@@ -12,3 +13,5 @@ export function LoginPage() {
     </div>
   );
 }
+
+export default withLayout(LoginPage);

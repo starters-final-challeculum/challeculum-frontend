@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { apiBaseUrl } from '../common/constants';
+import { apiBaseUrl } from '../../../common/globalConstants';
 
 export function RegisterForm() {
   const { register, handleSubmit } = useForm();

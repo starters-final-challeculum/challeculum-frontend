@@ -5,19 +5,14 @@ module.exports = {
     node: true,
     jest: true,
   },
-  extends: [
-    'plugin:react/recommended',
-    'airbnb',
-  ],
-  overrides: [
-  ],
+  extends: ['plugin:react/recommended', 'airbnb'],
+  overrides: [],
+
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-  ],
+  plugins: ['react'],
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'import/prefer-default-export': 'off',
@@ -32,6 +27,9 @@ module.exports = {
     'import/resolver': {
       node: {},
     },
-    'jsx-a11y/label-has-associated-control': [2, { labelAttributes: ['htmlFor'] }],
+    'jsx-a11y/label-has-associated-control': [
+      2,
+      { labelAttributes: ['htmlFor'] },
+    ],
   },
 };

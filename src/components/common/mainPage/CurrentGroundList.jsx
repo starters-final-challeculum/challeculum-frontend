@@ -1,8 +1,8 @@
 import React from 'react';
 
-function CurrentGround() {
+function CurrentGroundList() {
   return (
     <div>현재 참여중인 Ground</div>
   );
 }
-export default CurrentGround;
+export default CurrentGroundList;

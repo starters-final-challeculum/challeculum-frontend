@@ -1,8 +1,9 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
+import { withLayout } from '../../components/common/layout/Layout';
 
-export function NotFound() {
+function NotFound() {
   return (
     <div className="flex h-screen flex-col items-center justify-center">
       <Helmet>
@@ -19,3 +20,5 @@ export function NotFound() {
     </div>
   );
 }
+
+export default withLayout(NotFound);

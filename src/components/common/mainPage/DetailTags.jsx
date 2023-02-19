@@ -16,7 +16,6 @@ function DetailTags() {
         <TagButton onClick={() => navigate('/category/자격증')}>
           <span>자격증</span>
         </TagButton>
-
       </Tags>
     </TagSpace>
   );
