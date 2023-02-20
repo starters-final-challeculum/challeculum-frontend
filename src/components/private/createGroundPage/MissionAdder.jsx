@@ -1,8 +1,7 @@
 import React from 'react';
-import { useForm, useFieldArray } from 'react-hook-form';
-import axios from 'axios';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { TiMinusOutline } from 'react-icons/ti';
-import { apiBaseUrl } from '../../../common/globalConstants';
+import api from '../../../common/axios-config';
 
 export function MissionAdder({ getValues }) {
   const {
@@ -25,15 +24,12 @@ export function MissionAdder({ getValues }) {
       missionList: data.forms,
     };
     console.log(allData);
-    axios.post(`${apiBaseUrl}/ground`, allData, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then((response) => {
-      console.log(response.status);
-    }).catch(() => {
-      console.log('fail');
-    });
+    api.post('/ground', allData)
+      .then((response) => {
+        console.log(response.status);
+      }).catch(() => {
+        console.log('fail');
+      });
   };
 
   return (
