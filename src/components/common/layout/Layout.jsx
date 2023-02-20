@@ -15,7 +15,7 @@ function Layout({ children }) {
     <div className="flex flex-col min-h-screen">
       <Header isAuthenticated={isAuthenticated} />
       <div className="flex-1 bg-gray-100">
-        <div className="container mx-auto max-w-screen-xl px-4 py-8 max-h-screen">
+        <div className="container mx-auto max-w-screen-xl px-4 py-8">
           {children}
         </div>
       </div>

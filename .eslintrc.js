@@ -23,6 +23,7 @@ module.exports = {
     'jsx-a11y/label-has-associated-control': 'off',
     'react/no-array-index-key': 'off',
     'no-param-reassign': 'off',
+    'no-unused-vars': 'off',
   },
   settings: {
     'import/resolver': {

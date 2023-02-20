@@ -12,6 +12,13 @@ module.exports = {
         mWhite: '#EEEEEE',
         mCream: '#F3EAC8',
       },
+      '.hide-scroll::-webkit-scrollbar': {
+        display: 'none',
+      },
+      '.hide-scroll': {
+        '-ms-overflow-style': 'none',
+        'scrollbar-width': 'none',
+      },
     },
   },
   plugins: [],
