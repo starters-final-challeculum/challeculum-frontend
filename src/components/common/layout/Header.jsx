@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import {
-  FaBars, FaMapMarkerAlt, FaUserCircle, FaShoppingBag, FaSearch,
-} from 'react-icons/fa';
+import { FaBars, FaMapMarkerAlt, FaSearch } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 export function Header({ isAuthenticated }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <header className="sticky top-0 bg-white border-b border-gray-200">
@@ -37,44 +37,33 @@ export function Header({ isAuthenticated }) {
             </button>
             {isAuthenticated ? (
               <div className="ml-3 flex items-center">
-                <button className="mr-3">
-                  <FaShoppingBag className="text-gray-600" />
-                </button>
+                <a
+                  href="/login"
+                  className="border border-gray-900 text-gray-900 hover:text-white hover:bg-gray-900 py-2 px-4 rounded-3xl font-medium"
+                >
+                  내정보
+                </a>
                 <button
-                  onClick={() => setIsMenuOpen(!isMenuOpen)}
-                  className="focus:outline-none"
+                  onClick={() => {
+                    localStorage.removeItem('Authorization');
+                    localStorage.removeItem('RefreshToken');
+                    navigate('/');
+                  }}
+                  className="bg-gray-900 text-white py-2 px-4 rounded-3xl ml-3 font-medium"
                 >
-                  <FaUserCircle className="text-gray-600" />
+                  로그아웃
                 </button>
-                <div
-                  className={`${
-                    isMenuOpen ? 'block' : 'hidden'
-                  } absolute right-0 mt-2 py-2 w-48 bg-white rounded-3xl shadow-xl z-10`}
-                >
-                  <a
-                    href="/"
-                    className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
-                  >
-                    내 정보
-                  </a>
-                  <a
-                    href="/"
-                    className="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
-                  >
-                    로그아웃
-                  </a>
-                </div>
               </div>
             ) : (
               <div className="ml-3 flex items-center">
                 <a
-                  href="/"
+                  href="/login"
                   className="border border-gray-900 text-gray-900 hover:text-white hover:bg-gray-900 py-2 px-4 rounded-3xl font-medium"
                 >
                   로그인
                 </a>
                 <a
-                  href="/"
+                  href="/register"
                   className="bg-gray-900 text-white py-2 px-4 rounded-3xl ml-3 font-medium"
                 >
                   회원가입

@@ -8,7 +8,6 @@ function GroundForm() {
   const { register, getValues } = useForm();
   return (
     <form>
-      가
       <HalfWidth>
         <label>
           강의 선택
@@ -46,6 +45,21 @@ function GroundForm() {
         <label>
           그라운드 레벨
           <Select register={register} name="level" options={[1, 2, 3]} />
+        </label>
+      </HalfWidth>
+
+      <HalfWidth>
+        <label>
+          최소 인원
+          <BoundInput
+            type="number"
+            placeholder="최소 인원"
+            {...register('minCapacity', {
+              required: {
+                value: true,
+              },
+            })}
+          />
         </label>
       </HalfWidth>
 

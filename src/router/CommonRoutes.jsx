@@ -22,7 +22,7 @@ export const commonRoutes = [
     props: [],
   },
   {
-    path: '/ground:groundId',
+    path: '/ground/:groundId',
     component: GroundDetailPage,
     props: [],
   },

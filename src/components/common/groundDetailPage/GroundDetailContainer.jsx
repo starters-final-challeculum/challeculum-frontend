@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import { apiBaseUrl } from '../../../common/globalConstants';
+import api from '../../../common/axios-config';
 
 function GroundDetailContainer() {
   const param = useParams();
   const [ground, setGround] = useState({});
 
   const getGround = () => {
-    axios.get(`${apiBaseUrl}/ground/${param.groundId}`).then((response) => {
+    api.get(`/ground/${param.groundId}`).then((response) => {
       setGround(response.data);
     });
   };

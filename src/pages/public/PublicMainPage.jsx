@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from '../../components/common/layout/Container';
-import CurrentGround from '../../components/common/mainPage/CurrentGroundList';
+import CurrentGround from '../../components/common/mainPage/MyGroundCardList';
 import SearchBar from '../../components/common/mainPage/SearchBar';
 import GroundList from '../../components/common/mainPage/GroundList';
 import DetailTags from '../../components/common/mainPage/DetailTags';
