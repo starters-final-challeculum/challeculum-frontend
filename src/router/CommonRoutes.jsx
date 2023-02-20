@@ -1,8 +1,9 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from '../pages/common/Home';
-import NotFound from '../pages/error/NotFoundPage';
+import NotFound from '../pages/common/error/NotFoundPage';
 import MainPage from '../pages/common/MainPage';
+import GroundDetailPage from '../pages/common/GroundDetailPage';
 
 export const commonRoutes = [
   {
@@ -18,6 +19,11 @@ export const commonRoutes = [
   {
     path: '/not-found',
     component: NotFound,
+    props: [],
+  },
+  {
+    path: '/ground:groundId',
+    component: GroundDetailPage,
     props: [],
   },
 ];

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import { withLayout } from '../../components/common/layout/Layout';
+import { withLayout } from '../../../components/common/layout/Layout';
 
 function NotFound() {
   return (

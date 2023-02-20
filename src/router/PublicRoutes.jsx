@@ -1,6 +1,5 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import PublicGroundDetailPage from '../pages/public/PublicGroundDetailPage';
 import LoginPage from '../pages/public/LoginPage';
 import RegisterPage from '../pages/public/RegisterPage';
 import OAuthRedirectPage from '../pages/public/OAuthRedirectPage';
@@ -19,11 +18,6 @@ export const publicRoutes = [
   {
     path: '/oauth/redirect',
     component: OAuthRedirectPage,
-    props: [],
-  },
-  {
-    path: '/ground:groundId',
-    component: PublicGroundDetailPage,
     props: [],
   },
 ];

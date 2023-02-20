@@ -2,7 +2,6 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import ProfilePage from '../pages/private/ProfilePage';
 import CreateGroundPage from '../pages/private/CreateGroundPage';
-import PublicGroundDetailPage from '../pages/public/PublicGroundDetailPage';
 
 export const privateRoutes = [
   {
@@ -13,11 +12,6 @@ export const privateRoutes = [
   {
     path: '/create-ground',
     component: CreateGroundPage,
-    props: [],
-  },
-  {
-    path: '/ground/:groundId',
-    component: PublicGroundDetailPage,
     props: [],
   },
 ];
