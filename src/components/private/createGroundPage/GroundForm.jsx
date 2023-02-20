@@ -51,6 +51,21 @@ function GroundForm() {
 
       <HalfWidth>
         <label>
+          최소 인원
+          <BoundInput
+            type="number"
+            placeholder="최소 인원"
+            {...register('minCapacity', {
+              required: {
+                value: true,
+              },
+            })}
+          />
+        </label>
+      </HalfWidth>
+
+      <HalfWidth>
+        <label>
           최대 인원
           <BoundInput
             type="number"

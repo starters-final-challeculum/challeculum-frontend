@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { apiBaseUrl } from '../../../common/globalConstants';
+import { apiBaseUrl } from '../../../common/global-constants';
 
 export function LoginForm() {
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -12,6 +12,7 @@ export function LoginForm() {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
+    console.log(data);
     axios.post(`${apiBaseUrl}/user/login`, data, {
       headers: {
         'Content-Type': 'application/json',
@@ -38,7 +39,7 @@ export function LoginForm() {
           type="email"
           id="email"
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          {...register('email', { required: true })}
+          {...register('username', { required: true })}
         />
         {errors.email && <p className="text-red-500 text-xs italic mt-2">Email is required</p>}
       </div>
