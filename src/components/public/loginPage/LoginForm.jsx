@@ -45,7 +45,7 @@ export function LoginForm() {
       </div>
 
       <div className="mb-6">
-        <label htmlFor="password" className="block text-gray-700 font-bold mb-2">
+        <label htmlFor="paord" className="block text-gray-700 font-bold mb-2">
           Password
         </label>
         <input

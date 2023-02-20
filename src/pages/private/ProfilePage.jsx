@@ -1,12 +1,15 @@
 import React from 'react';
-import Container from '../../components/common/layout/Container';
 import { withLayout } from '../../components/common/layout/Layout';
+import ProfileTabBar from '../../components/private/profilePage/ProfileTabBar';
+import Cards from '../../components/private/profilePage/Cards';
 
 function ProfilePage() {
   return (
-    <Container>
-      마이페이지
-    </Container>
+    <>
+      <Cards />
+      <ProfileTabBar />
+    </>
+
   );
 }
 export default withLayout(ProfilePage);

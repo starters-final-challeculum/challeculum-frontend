@@ -8,7 +8,6 @@ function GroundForm() {
   const { register, getValues } = useForm();
   return (
     <form>
-      가
       <HalfWidth>
         <label>
           강의 선택
