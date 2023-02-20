@@ -1,15 +1,15 @@
 import React from 'react';
 import { LoginForm } from '../../components/public/loginPage/LoginForm';
 import { withLayout } from '../../components/common/layout/Layout';
+import { GoogleLoginButton } from '../../components/public/loginPage/GoogleLoginButton';
+import { NaverLoginButton } from '../../components/public/loginPage/NaverLoginButton';
 
 function LoginPage() {
   return (
-    <div>
+    <div className="bg-white py-8 px-4 sm:px-6 lg:px-8 mx-auto w-1/2">
       <LoginForm />
-      <a href="http://localhost:8090/oauth2/authorization/google?redirect_uri=http://localhost:3000/oauth/redirect">구글 로그인</a>
-      <br />
-      <a href="http://localhost:8090/oauth2/authorization/naver?redirect_uri=http://localhost:3000/oauth/redirect">네이버 로그인</a>
-      <br />
+      <GoogleLoginButton />
+      <NaverLoginButton />
     </div>
   );
 }
