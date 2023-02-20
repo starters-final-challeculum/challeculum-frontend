@@ -19,7 +19,6 @@ function TabBar({ tabs }) {
         >
           {tab}
         </button>
-
       ))}
     </div>
   );
