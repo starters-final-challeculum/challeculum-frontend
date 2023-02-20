@@ -6,10 +6,12 @@ import { NaverLoginButton } from '../../components/public/loginPage/NaverLoginBu
 
 function LoginPage() {
   return (
-    <div className="bg-white py-8 px-4 sm:px-6 lg:px-8 mx-auto w-1/2">
-      <LoginForm />
-      <GoogleLoginButton />
-      <NaverLoginButton />
+    <div className="flex items-center justify-center h-screen">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-1/2">
+        <LoginForm />
+        <GoogleLoginButton />
+        <NaverLoginButton />
+      </div>
     </div>
   );
 }

@@ -5,11 +5,14 @@ import SearchBar from '../../components/common/mainPage/SearchBar';
 import GroundList from '../../components/common/mainPage/GroundList';
 import DetailTags from '../../components/common/mainPage/DetailTags';
 import { withLayout } from '../../components/common/layout/Layout';
+import TabBar from '../../components/common/elements/TabBar';
 
 function MainPage() {
+  const tabs = ['Tab 1', 'Tab 2', 'Tab 3', 'Tab 4', 'Tab 5'];
   return (
 
     <Container>
+      <TabBar tabs={tabs} />
       <h1>Private</h1>
       <a href="/login">로그인</a>
       <a href="/register">회원가입</a>
