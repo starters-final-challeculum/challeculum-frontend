@@ -1,11 +1,17 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import { publicRoutes, PublicRoutes } from './router/PublicRoutes';
+import { privateRoutes, PrivateRoutes } from './router/PrivateRoutes';
+import { commonRoutes, CommonRoutes } from './router/CommonRoutes';
 
-function App() {
+export default function App() {
+  const isAuthenticated = !!localStorage.getItem('Authorization');
+
   return (
-    <div className="App">
-      Hello World
-    </div>
+    <BrowserRouter>
+      <CommonRoutes routes={commonRoutes} />
+      <PrivateRoutes routes={privateRoutes} isAuthenticated={isAuthenticated} redirectPath="/login" />
+      <PublicRoutes routes={publicRoutes} isAuthenticated={isAuthenticated} />
+    </BrowserRouter>
   );
 }
-
-export default App;
