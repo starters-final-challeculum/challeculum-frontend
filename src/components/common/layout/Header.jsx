@@ -11,7 +11,7 @@ export function Header({ isAuthenticated }) {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <a href="/" className="text-xl font-medium text-gray-900">
-            UberEats
+            Challeculum
           </a>
           <div className="hidden md:flex items-center justify-center flex-grow">
             <div className="flex items-center bg-gray-100 rounded-full px-4 py-2 w-1/2">
@@ -38,7 +38,7 @@ export function Header({ isAuthenticated }) {
             {isAuthenticated ? (
               <div className="ml-3 flex items-center">
                 <a
-                  href="/login"
+                  href="/profile"
                   className="border border-gray-900 text-gray-900 hover:text-white hover:bg-gray-900 py-2 px-4 rounded-3xl font-medium"
                 >
                   내정보
