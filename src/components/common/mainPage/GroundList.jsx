@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import useFetchData from '../../../hooks/useFetchData';
 
 function GroundList() {
-  const fetchData = useFetchData('/ground');
+  const [fetchData, setFetchData] = useState([]);
+  const fetchDataHandler = useFetchData('/ground');
+
+  useEffect(() => {
+    setFetchData(fetchDataHandler);
+  }, [fetchDataHandler]);
 
   return (
     <div className="h-screen overflow-y-scroll shadow-md hover:shadow-lg">

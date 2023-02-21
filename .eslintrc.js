@@ -24,6 +24,7 @@ module.exports = {
     'react/no-array-index-key': 'off',
     'no-param-reassign': 'off',
     'no-unused-vars': 'off',
+    'max-len': 'off',
   },
   settings: {
     'import/resolver': {
