@@ -14,20 +14,20 @@ function MainPage() {
   categoryMap.set('CATEGORY_CERTIFICATION', '5');
   const keys = [...categoryMap.keys()];
 
-  const [activeTab, setActiveTab] = useState(keys[0]);
+  const [category, setCategory] = useState(keys[0]);
   const isAuthenticated = !!localStorage.getItem('Authorization');
 
   const handleTabClick = (tab) => {
-    setActiveTab(tab);
+    setCategory(tab);
   };
 
   return (
     <div>
-      <CategoryTabBar tabs={keys} activeTab={activeTab} onTabClick={handleTabClick} />
+      <CategoryTabBar tabs={keys} activeCategory={category} onTabClick={handleTabClick} />
       { isAuthenticated
         && (
         <div className="mb-8">
-          <h3 className="text-2xl"> 참여중인 그라운드 </h3>
+          <h3 className="text-2xl my-8"> 참여중인 그라운드 </h3>
           <MyGroundCardList />
         </div>
         )}

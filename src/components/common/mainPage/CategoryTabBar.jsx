@@ -1,11 +1,11 @@
 import React from 'react';
 
-export function CategoryTabBar({ tabs, activeTab, onTabClick }) {
+export function CategoryTabBar({ tabs, activeCategory, onTabClick }) {
   const handleClick = (tab) => {
     onTabClick(tab);
   };
 
-  const isActivated = (tab) => activeTab === tab;
+  const isActivated = (tab) => activeCategory === tab;
 
   return (
     <div className="flex mb-4">

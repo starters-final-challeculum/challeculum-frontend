@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import api from '../../../common/axios-config';
+import React from 'react';
 import useFetchData from '../../../hooks/useFetchData';
 
-function GroundList({
-  page, filter, sortBy, orderBy, keyword,
-}) {
+function GroundList() {
   const fetchData = useFetchData('/ground');
 
   return (
     <div className="h-screen overflow-y-scroll shadow-md hover:shadow-lg">
-      <div className="bg-green-200 p-4">
+      <div className="bg-gradient-to-br from-red-300 to-blue-200 rounded-3xl p-4">
         {fetchData.map((item) => (
           <div key={item.id} className="bg-white p-4 my-4 rounded-lg shadow-md">
             <div className="text-lg font-semibold">{item.title}</div>
