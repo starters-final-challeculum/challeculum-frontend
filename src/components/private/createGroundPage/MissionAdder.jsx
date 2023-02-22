@@ -1,6 +1,7 @@
 import React from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { TiMinusOutline } from 'react-icons/ti';
+import { useNavigate } from 'react-router-dom';
 import api from '../../../common/axios-config';
 
 export function MissionAdder({ getValues }) {
@@ -12,7 +13,7 @@ export function MissionAdder({ getValues }) {
     },
 
   });
-
+  const navigate = useNavigate();
   const { fields, append, remove } = useFieldArray({
     control,
     name: 'forms',
@@ -26,6 +27,7 @@ export function MissionAdder({ getValues }) {
     console.log(allData);
     api.post('/ground', allData)
       .then((response) => {
+        navigate('/profile');
         console.log(response.status);
       }).catch(() => {
         console.log('fail');
