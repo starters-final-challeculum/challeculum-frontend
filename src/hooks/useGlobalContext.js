@@ -2,13 +2,13 @@ import React, { createContext, useState, useMemo } from 'react';
 
 export const SearchContext = createContext();
 
-export function SearchProvider({ children }) {
+export function ContextProvider({ children }) {
   const [keyword, setKeyword] = useState('');
   const [sortBy, setSortBy] = useState('asc');
   const [orderBy, setOrderBy] = useState('created_at');
   const [status, setStatus] = useState('waiting');
   const [platform, setPlatform] = useState('');
-  const [category, setCategory] = useState('');
+  const [categoryId, setCategoryId] = useState('');
   const [filter, setFilter] = useState('status:waiting');
 
   const generateFilterString = (map) => {
@@ -21,7 +21,12 @@ export function SearchProvider({ children }) {
         filterString += `${filterKey}:${filterValue}`;
       }
     });
+    console.log(filterString);
     return filterString;
+  };
+
+  const handleSortByToggle = () => {
+    setSortBy((prevSortBy) => (prevSortBy === 'asc' ? 'desc' : 'asc'));
   };
 
   const value = useMemo(() => ({
@@ -35,13 +40,13 @@ export function SearchProvider({ children }) {
     setStatus,
     platform,
     setPlatform,
-    category,
-    setCategory,
+    categoryId,
+    setCategoryId,
     filter,
     setFilter,
     generateFilterString,
-  }), [keyword, sortBy, orderBy, status, platform, category, filter]);
-
+    handleSortByToggle,
+  }), [keyword, sortBy, orderBy, status, platform, categoryId, filter]);
   return (
     <SearchContext.Provider value={value}>
       {children}
@@ -49,7 +54,7 @@ export function SearchProvider({ children }) {
   );
 }
 
-export function useSearch() {
+export function useGlobalContext() {
   const context = React.useContext(SearchContext);
   if (context === undefined) {
     throw new Error('useSearch must be used within a SearchProvider');

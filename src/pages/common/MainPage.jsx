@@ -1,31 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import MyGroundCardList from '../../components/common/mainPage/MyGroundCardList';
 import GroundList from '../../components/common/mainPage/GroundList';
 import { withLayout } from '../../components/common/layout/Layout';
 import { CategoryTabBar } from '../../components/common/mainPage/CategoryTabBar';
-import { useSearch } from '../../hooks/useSearch';
+import { useGlobalContext } from '../../hooks/useGlobalContext';
 
 function MainPage() {
   const categoryMap = new Map();
-  categoryMap.set('CATEGORY_IT', '1');
-  categoryMap.set('CATEGORY_LANGUAGE', '2');
-  categoryMap.set('CATEGORY_DESIGN', '3');
-  categoryMap.set('CATEGORY_MARKETING', '4');
-  categoryMap.set('CATEGORY_SCHOOL', '5');
-  categoryMap.set('CATEGORY_CERTIFICATION', '6');
+  categoryMap.set('1', 'CATEGORY_IT');
+  categoryMap.set('2', 'CATEGORY_LANGUAGE');
+  categoryMap.set('3', 'CATEGORY_DESIGN');
+  categoryMap.set('4', 'CATEGORY_MARKETING');
+  categoryMap.set('5', 'CATEGORY_SCHOOL');
+  categoryMap.set('6', 'CATEGORY_CERTIFICATION');
 
   const isAuthenticated = !!localStorage.getItem('Authorization');
-  const context = useSearch();
+  const context = useGlobalContext();
 
-  const filterMap = new Map([
-    ['status', context.status],
-    ['platform', context.platform],
-    ['category_id', context.category],
-  ]);
-
-  const handleTabClick = (tab) => {
-    context.setCategory(tab);
+  const handleTabClick = (categoryId) => {
+    const filterMap = new Map([
+      ['status', context.status],
+      ['platform', context.platform],
+      ['category_id', categoryId],
+    ]);
     context.setFilter(context.generateFilterString(filterMap));
+    context.setCategoryId(categoryId);
   };
 
   return (
@@ -39,7 +38,7 @@ function MainPage() {
         )}
       <CategoryTabBar
         tabs={categoryMap}
-        activeCategory={context.category}
+        activeCategory={context.categoryId}
         onTabClick={handleTabClick}
       />
       <GroundList />

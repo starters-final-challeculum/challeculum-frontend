@@ -28,7 +28,10 @@ export function LoginForm() {
         console.log('로그인 실패');
       });
   };
-
+  const validateEmail = (value) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(value).toLowerCase());
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-4">
@@ -39,9 +42,14 @@ export function LoginForm() {
           type="email"
           id="email"
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          {...register('username', { required: true })}
+          {...register('username', { required: true, validate: validateEmail })}
         />
-        {errors.email && <p className="text-red-500 text-xs italic mt-2">Email is required</p>}
+        {errors.username?.type === 'required' && (
+          <span className="text-red-500 text-sm italic mt-2">이메일을 입력해주세요.</span>
+        )}
+        {errors.username?.type === 'validate' && (
+          <span className="text-red-500 text-sm italic mt-2">올바른 이메일 형식이 아닙니다.</span>
+        )}
       </div>
 
       <div className="mb-6">
@@ -52,15 +60,17 @@ export function LoginForm() {
           type="password"
           id="password"
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          {...register('password', { required: true })}
+          {...register('password', { required: true, pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])(?=.*[^\dA-Za-z]).{9,20}$/ })}
         />
-        {errors.password && <p className="text-red-500 text-xs italic mt-2">Password is required</p>}
+        {errors.password?.type === 'required' && (
+          <span className="text-red-500 text-sm italic mt-2">비밀번호를 입력해주세요.</span>
+        )}
       </div>
 
       <div className="flex items-center justify-between">
         <button
           type="submit"
-          className={`w-full bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${!Object.keys(errors).length ? '' : 'opacity-50 cursor-not-allowed'}`}
+          className={`w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2 px-4 rounded-2xl focus:outline-none focus:shadow-outline ${!Object.keys(errors).length ? '' : 'opacity-50 cursor-not-allowed'}`}
           // disabled={!Object.keys(errors).length}
         >
           Log in

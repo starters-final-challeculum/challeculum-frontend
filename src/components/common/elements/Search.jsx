@@ -1,12 +1,9 @@
 import React from 'react';
 import { FaBars, FaSearch } from 'react-icons/fa';
-import { useSearch } from '../../../hooks/useSearch';
+import { useGlobalContext } from '../../../hooks/useGlobalContext';
 
 export function Search({ onSearchButtonClick }) {
-  const context = useSearch();
-  const handleSortByToggle = () => {
-    context.setSortBy((prevSortBy) => (prevSortBy === 'asc' ? 'desc' : 'asc'));
-  };
+  const context = useGlobalContext();
   return (
     <>
       <div className="flex items-center bg-gray-100 rounded-full px-4 py-2 w-1/2 mx-3">
@@ -45,7 +42,7 @@ export function Search({ onSearchButtonClick }) {
       <div className="mr-4 mx-2">
         <button
           className="bg-gray-100 rounded-full px-4 py-2 text-gray-800 font-medium focus:outline-none"
-          onClick={handleSortByToggle}
+          onClick={context.handleSortByToggle}
         >
           {context.sortBy === 'asc' ? '⬆️' : '⬇️'}
         </button>

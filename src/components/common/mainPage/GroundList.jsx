@@ -1,45 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import useFetchData from '../../../hooks/useFetchData';
+import { GroundElement } from './GroundElement';
+import { useGlobalContext } from '../../../hooks/useGlobalContext';
 
 function GroundList() {
+  const context = useGlobalContext();
   const [fetchData, setFetchData] = useState([]);
-  const fetchDataHandler = useFetchData('/ground');
+  const [page, setPage] = useState(1);
+  const fetchDataHandler = useFetchData('/ground', {
+    page,
+    filter: context.filter ? context.filter : undefined,
+    keyword: context.keyword ? context.keyword : undefined,
+    sortBy: context.sortBy,
+    orderBy: context.orderBy,
+  });
 
   useEffect(() => {
     setFetchData(fetchDataHandler);
-  }, [fetchDataHandler]);
+  }, [fetchDataHandler, context]);
 
   return (
     <div className="h-screen overflow-y-scroll shadow-md hover:shadow-lg">
       <div className="bg-gradient-to-br from-red-300 to-blue-200 rounded-3xl p-4">
         {fetchData.map((item) => (
-          <div key={item.id} className="bg-white p-4 my-4 rounded-lg shadow-md">
-            <div className="text-lg font-semibold">{item.title}</div>
-            <div className="text-gray-700">
-              <div>
-                Level:
-                {item.level}
-              </div>
-              <div>
-                Capacity:
-                {item.minCapacity}
-                {' '}
-                ~
-                {item.maxCapacity}
-              </div>
-              <div>
-                Deposit:
-                {item.deposit}
-              </div>
-              <div>
-                Period:
-                {item.startAt}
-                {' '}
-                ~
-                {item.endAt}
-              </div>
-            </div>
-          </div>
+          <GroundElement
+            key={item.id}
+            id={item.id}
+            title={item.title}
+            level={item.level}
+            minCapacity={item.minCapacity}
+            maxCapacity={item.maxCapacity}
+            deposit={item.deposit}
+            startAt={item.startAt}
+            endAt={item.endAt}
+          />
         ))}
       </div>
     </div>

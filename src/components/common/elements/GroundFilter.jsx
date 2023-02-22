@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { useSearch } from '../../../hooks/useSearch';
+import React from 'react';
+import { useGlobalContext } from '../../../hooks/useGlobalContext';
 
 export function GroundFilter() {
-  const context = useSearch();
+  const context = useGlobalContext();
   const filterMap = new Map([
     ['status', context.status],
     ['platform', context.platform],
