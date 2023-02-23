@@ -3,11 +3,11 @@ import tw from 'tailwind-styled-components';
 import api from '../../../common/axios-config';
 
 function AddMyLecture() {
-  const [lectureList, setLectureList] = useState('');
+  const [lectureListAvailable, setLectureListAvailable] = useState('');
 
-  const getLectureList = async () => {
-    api.get('/lecture').then((response) => {
-      setLectureList(response.data);
+  const getLectureListAvailable = async () => {
+    api.get('/lecture/available').then((response) => {
+      setLectureListAvailable(response.data);
       console.log(response.data);
     });
   };
@@ -16,16 +16,18 @@ function AddMyLecture() {
     api.post(`/userlecture/${event.target.id}`).then((response) => {
       console.log(event.target.id);
       console.log('수강중인 강의 등록 완료');
+      alert('완료되었습니다. 현재 수강중인 강의 탭을 확인해주세요!');
+      getLectureListAvailable();
     });
   };
 
   useEffect(() => {
-    getLectureList();
+    getLectureListAvailable();
   }, []);
 
   return (
     <GroundListContainer>
-      {lectureList && lectureList.map((item) => (
+      {lectureListAvailable && lectureListAvailable.map((item) => (
         <GroundListCard key={item.id}>
           <div className="text-gray-700">
             카테고리 :

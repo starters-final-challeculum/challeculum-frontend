@@ -39,7 +39,7 @@ export function RegisterForm() {
     return re.test(value);
   };
 
-  const validatePhoneNumber = (value) => {
+  const validatePhone = (value) => {
     const re = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/;
     return re.test(value);
   };
@@ -47,7 +47,7 @@ export function RegisterForm() {
   const isSubmitDisabled = !!formState.errors.email
     || !!formState.errors.password
     || !!formState.errors.nickname
-    || !!formState.errors.phoneNumber;
+    || !!formState.errors.phone;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full">
@@ -129,29 +129,29 @@ export function RegisterForm() {
         )}
       </div>
       <div className="flex flex-col mb-4">
-        <label htmlFor="phoneNumber" className="text-lg font-semibold mb-2">
+        <label htmlFor="phone" className="text-lg font-semibold mb-2">
           휴대전화번호
         </label>
         <div className="relative">
           <input
-            id="phoneNumber"
+            id="phone"
             type="tel"
             className="w-full rounded-md py-2 px-4 border-gray-300 border focus:outline-none focus:border-gray-600"
-            {...register('phoneNumber', {
+            {...register('phone', {
               required: true,
-              validate: validatePhoneNumber,
+              validate: validatePhone,
             })}
           />
-          {formState.errors.phoneNumber && (
+          {formState.errors.phone && (
             <span className="absolute right-0 top-0 mt-3 mr-4">
               <FaRegTimesCircle className="text-red-500" size={20} />
             </span>
           )}
         </div>
-        {formState.errors.phoneNumber?.type === 'required' && (
+        {formState.errors.phone?.type === 'required' && (
           <span className="text-red-500 text-sm">휴대전화번호를 입력해주세요.</span>
         )}
-        {formState.errors.phoneNumber?.type === 'validate' && (
+        {formState.errors.phone?.type === 'validate' && (
           <span className="text-red-500 text-sm">올바른 휴대전화번호 형식이 아닙니다.</span>
         )}
       </div>
