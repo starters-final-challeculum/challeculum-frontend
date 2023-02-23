@@ -35,7 +35,7 @@ function GroundListByMe() {
       <Button onClick={onCreateHandler}>그라운드 생성</Button>
       {ground && ground.map((item) => (
         <GroundListCard key={item.groundId}>
-          <div>강의 플랫폼(이미지)</div>
+          <div>{item.platform}</div>
           <div className="text-lg font-semibold">{item.title}</div>
           <div className="text-gray-700">
             {item.startAt}
@@ -43,12 +43,16 @@ function GroundListByMe() {
             {item.endAt}
           </div>
           <div className="text-gray-700">
-            현재참여인원
+            현재 참여인원
             /
             {item.maxCapacity}
           </div>
           <div className="text-gray-700">
             {item.deposit}
+          </div>
+          <div>
+            현재 상태:
+            {item.status}
           </div>
           <Button id={item.groundId} onClick={onDeleteHandler}>그라운드 생성 취소</Button>
         </GroundListCard>
