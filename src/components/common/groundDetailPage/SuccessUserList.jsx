@@ -6,7 +6,7 @@ const Container = tw.div`w-full h-80 overflow-y-auto bg-gray-700`;
 
 const List = tw.ul`divide-y divide-gray-600`;
 
-export function SuccessUserList({ ground, fetchSuccessUserList }) {
+export function SuccessUserList({ fetchSuccessUserList }) {
   const users = fetchSuccessUserList();
   return (
     <Container>

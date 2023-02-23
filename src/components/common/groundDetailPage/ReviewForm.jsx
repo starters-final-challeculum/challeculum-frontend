@@ -6,8 +6,6 @@ const Form = tw.form`w-full p-6 flex flex-col`;
 
 const Label = tw.label`mb-2 text-gray-800 font-bold`;
 
-const Input = tw.input`mb-4 py-2 px-4 border border-gray-300 rounded-md`;
-
 const StarIcon = tw(FaStar)`mr-2 cursor-pointer inline`;
 
 const Textarea = tw.textarea`mb-4 py-2 px-4 border border-gray-300 rounded-md resize-none`;

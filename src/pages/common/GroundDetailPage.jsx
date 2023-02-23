@@ -37,16 +37,13 @@ function GroundDetailPage() {
       createUserMission={createUserMission}
     />],
     ['RemainUserGrid', <RemainUserGrid
-      ground={ground}
       fetchUserList={fetchUserList}
       fetchReward={fetchReward}
     />],
     ['SuccessUserList', <SuccessUserList
-      ground={ground}
       fetchSuccessUserList={fetchSuccessUserList}
     />],
     ['ReviewContainer', <ReviewContainer
-      ground={ground}
       fetchReviewList={fetchReviewList}
       fetchIsReviewableUser={fetchIsReviewableUser}
       reviewUserGround={reviewUserGround}

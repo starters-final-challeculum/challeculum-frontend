@@ -96,7 +96,7 @@ function GroundAssignment({ mission, ground, createUserMission }) {
           {mission.assignment}
         </Text>
       </div>
-      {/* { (ground.status === 'ongoing' && checkIsTodayMission(mission.startAt, mission.endAt)) && ( */}
+      { (ground.status === 'ongoing' && checkIsTodayMission(mission.startAt, mission.endAt)) && (
       <>
         <UploadArea>
           {file ? (
@@ -111,7 +111,7 @@ function GroundAssignment({ mission, ground, createUserMission }) {
         </UploadArea>
         <Button onClick={handleSubmit}>Submit</Button>
       </>
-      {/* )} */}
+      )}
     </Card>
   );
 }

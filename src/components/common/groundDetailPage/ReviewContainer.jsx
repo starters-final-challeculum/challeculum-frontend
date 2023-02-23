@@ -6,7 +6,7 @@ import { ReviewForm } from './ReviewForm';
 const Container = tw.div`w-full h-80 overflow-y-auto bg-gray-100`;
 
 export function ReviewContainer({
-  ground, fetchReviewList, fetchIsReviewableUser, reviewUserGround,
+  fetchReviewList, fetchIsReviewableUser, reviewUserGround,
 }) {
   const [reviews, setReviews] = useState([]);
   const handleSubmit = (review) => {
@@ -21,10 +21,11 @@ export function ReviewContainer({
     }
     fetchData();
   }, [fetchReviewList]);
+  const reviewable = fetchIsReviewableUser();
   return (
     <Container>
       <ReviewList reviews={reviews} />
-      <ReviewForm onSubmit={handleSubmit} />
+      {reviewable && <ReviewForm onSubmit={handleSubmit} />}
     </Container>
   );
 }
