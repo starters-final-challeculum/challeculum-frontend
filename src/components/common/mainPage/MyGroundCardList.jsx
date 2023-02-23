@@ -4,9 +4,9 @@ import { mockCardData } from '../../../common/mock-datas';
 
 function MyGroundCardList() {
   const fetchData = useFetchData('/userground');
+
   return (
     <div className="hide-scroll flex flex-nowrap overflow-x-auto">
-
       {mockCardData.map((item) => (
         <div key={item.groundId} className="w-64 flex-shrink-0 mr-4">
           <div className="bg-white rounded-lg shadow-lg">

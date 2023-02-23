@@ -6,7 +6,7 @@ import MyLectureList from './MyLectureList';
 import AddMyLecture from './AddMyLecture';
 
 function ProfileTabBar() {
-  const tabs = ['내 정보', '내가 만든 그라운드', '내가 참여중인 그라운드', '현재 수강중인 강의', '수강중인 강의 등록하기'];
+  const tabs = ['내 정보', '내가 만든 그라운드', '내가 참여중인 그라운드', '현재 수강중인 강의', '강의 등록하기'];
   const [activeTab, setActiveTab] = useState(tabs[0]);
 
   const handleClick = (tab) => {
@@ -33,7 +33,8 @@ function ProfileTabBar() {
         {activeTab === '내가 만든 그라운드' && <GroundListByMe />}
         {activeTab === '내가 참여중인 그라운드' && <MyGroundList />}
         {activeTab === '현재 수강중인 강의' && <MyLectureList />}
-        {activeTab === '수강중인 강의 등록하기' && <AddMyLecture />}
+        {activeTab === '강의 등록하기' && <AddMyLecture />}
+
       </div>
     </div>
   );
