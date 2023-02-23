@@ -29,7 +29,17 @@ const Info = tw.div`
   bg-emerald-700 text-white rounded-lg p-4
 `;
 
-function GroundDetailCard({ ground }) {
+function GroundDetailCard({
+  ground, fetchIsAvailableGround, createUserGround, cancelUserGround,
+}) {
+  const available = fetchIsAvailableGround;
+  const ClickHandle = () => {
+    if (available) {
+      createUserGround();
+    } else {
+      cancelUserGround();
+    }
+  };
   return (
     <Card>
       <Title>{ground.title}</Title>
@@ -73,8 +83,11 @@ function GroundDetailCard({ ground }) {
           </span>
         </IconText>
         <IconText>
-          <button className="bg-gray-200 p-1 rounded-2xl">
-            status에 따라 달라지는 버튼
+          <button
+            className="bg-gray-200 p-1 rounded-2xl"
+            onClick={ClickHandle}
+          >
+            {available ? '참여하기' : '참여취소'}
           </button>
         </IconText>
       </div>

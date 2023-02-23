@@ -7,7 +7,7 @@ function MyGroundCardList() {
   return (
     <div className="hide-scroll flex flex-nowrap overflow-x-auto">
 
-      {mockCardData.map((item) => (
+      {fetchData.map((item) => (
         <div key={item.groundId} className="w-64 flex-shrink-0 mr-4">
           <div className="bg-white rounded-lg shadow-lg">
             <div className="p-4">

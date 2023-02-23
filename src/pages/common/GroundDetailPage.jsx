@@ -6,7 +6,7 @@ import GroundDetailCard from '../../components/common/groundDetailPage/GroundDet
 import GroundMissionList from '../../components/common/groundDetailPage/GroundMissionList';
 import { RemainUserGrid } from '../../components/common/groundDetailPage/RemainUserGrid';
 import { SuccessUserList } from '../../components/common/groundDetailPage/SuccessUserList';
-import { ReviewList } from '../../components/common/groundDetailPage/ReviewList';
+import { ReviewContainer } from '../../components/common/groundDetailPage/ReviewContainer';
 import api from '../../common/axios-config';
 
 function GroundDetailPage() {
@@ -18,8 +18,8 @@ function GroundDetailPage() {
   const fetchReward = () => useFetchData(`/userground/reward/${params.groundId}`);
   const fetchSuccessUserList = () => useFetchData(`/userground/success/${params.groundId}`);
   const fetchIsReviewableUser = () => useFetchData(`/userground/review-available/${params.groundId}`);
-  const fetchReviewList = () => useFetchData(`/userground/review-available/${params.groundId}`);
-  const createUserGround = () => api.post('/userground');
+  const fetchReviewList = () => useFetchData(`/userground/review/${params.groundId}`);
+  const createUserGround = () => api.post(`/userground/${params.groundId}`);
   const cancelUserGround = () => api.patch('/userground');
   const createUserMission = (missionId) => api.post(`/usermission/${missionId}`);
   const reviewUserGround = (reviewForm) => api.patch(`/userground/review/${params.groundId}`, reviewForm);
@@ -45,9 +45,9 @@ function GroundDetailPage() {
       ground={ground}
       fetchSuccessUserList={fetchSuccessUserList}
     />],
-    ['ReviewList', <ReviewList
+    ['ReviewContainer', <ReviewContainer
       ground={ground}
-      fetchRevireList={fetchReviewList}
+      fetchReviewList={fetchReviewList}
       fetchIsReviewableUser={fetchIsReviewableUser}
       reviewUserGround={reviewUserGround}
     />],
@@ -55,8 +55,7 @@ function GroundDetailPage() {
 
   return (
     <>
-      {/* <GroundDetailCard ground={ground} /> */}
-      { ground.status === 'waiting' && (
+      { ground.status === 'standby' && (
       <>
         {componentMap.get('GroundDetailCard')}
         {componentMap.get('GroundMissionList')}
@@ -72,7 +71,7 @@ function GroundDetailPage() {
       { ground.status === 'completed' && (
       <>
         {componentMap.get('SuccessUserList')}
-        {componentMap.get('ReviewList')}
+        {componentMap.get('ReviewContainer')}
       </>
       )}
     </>

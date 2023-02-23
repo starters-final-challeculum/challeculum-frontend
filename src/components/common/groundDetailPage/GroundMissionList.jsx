@@ -10,7 +10,7 @@ const List = tw.div`
   flex space-x-4
 `;
 
-function GroundMissionList({ ground, fetchMissionList }) {
+function GroundMissionList({ ground, fetchMissionList, createUserMission }) {
   const missionList = fetchMissionList();
   return (
     <ListContainer>
@@ -20,6 +20,7 @@ function GroundMissionList({ ground, fetchMissionList }) {
             key={mission.id}
             ground={ground}
             mission={mission}
+            createUserMission={createUserMission}
           />
         ))}
       </List>

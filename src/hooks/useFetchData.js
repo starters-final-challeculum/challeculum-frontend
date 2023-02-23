@@ -9,6 +9,7 @@ function useFetchData(url, params) {
     const fetchData = async () => {
       const result = await api.get(url, { params });
       setData(result.data);
+      console.log(result.data);
     };
     fetchData();
   }, [url, context]);

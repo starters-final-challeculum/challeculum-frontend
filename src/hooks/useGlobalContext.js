@@ -6,10 +6,10 @@ export function ContextProvider({ children }) {
   const [keyword, setKeyword] = useState('');
   const [sortBy, setSortBy] = useState('asc');
   const [orderBy, setOrderBy] = useState('created_at');
-  const [status, setStatus] = useState('waiting');
+  const [status, setStatus] = useState('');
   const [platform, setPlatform] = useState('');
   const [categoryId, setCategoryId] = useState('');
-  const [filter, setFilter] = useState('status:waiting');
+  const [filter, setFilter] = useState('status:all');
 
   const generateFilterString = (map) => {
     let filterString = '';

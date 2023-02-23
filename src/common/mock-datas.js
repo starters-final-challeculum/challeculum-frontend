@@ -80,3 +80,126 @@ export const mockCardData = [
     isSuccess: null,
   },
 ];
+
+export const dummyUsers = [
+  {
+    username: 'user1',
+    nickname: 'nickname1',
+    success: true,
+    missionScore: 1001,
+  },
+  {
+    username: 'user2',
+    nickname: 'nickname2',
+    success: true,
+    missionScore: 1002,
+  },
+  {
+    username: 'user3',
+    nickname: 'nickname3',
+    success: true,
+    missionScore: 1003,
+  },
+  {
+    username: 'user4',
+    nickname: 'nickname4',
+    success: true,
+    missionScore: 1004,
+  },
+  {
+    username: 'user5',
+    nickname: 'nickname5',
+    success: false,
+    missionScore: 1005,
+  },
+  {
+    username: 'user6',
+    nickname: 'nickname6',
+    success: true,
+    missionScore: 1006,
+  },
+  {
+    username: 'user7',
+    nickname: 'nickname7',
+    success: true,
+    missionScore: 1007,
+  },
+  {
+    username: 'user8',
+    nickname: 'nickname8',
+    success: false,
+    missionScore: 1008,
+  },
+  {
+    username: 'user9',
+    nickname: 'nickname9',
+    success: true,
+    missionScore: 1009,
+  },
+  {
+    username: 'user10',
+    nickname: 'nickname10',
+    success: false,
+    missionScore: 1010,
+  },
+  {
+    username: 'user11',
+    nickname: 'nickname11',
+    success: true,
+    missionScore: 1011,
+  },
+  {
+    username: 'user12',
+    nickname: 'nickname12',
+    success: true,
+    missionScore: 1012,
+  },
+  {
+    username: 'user13',
+    nickname: 'nickname13',
+    success: true,
+    missionScore: 1013,
+  },
+  {
+    username: 'user14',
+    nickname: 'nickname14',
+    success: false,
+    missionScore: 1014,
+  },
+  {
+    username: 'user15',
+    nickname: 'nickname15',
+    success: false,
+    missionScore: 1015,
+  },
+  {
+    username: 'user16',
+    nickname: 'nickname16',
+    success: true,
+    missionScore: 1016,
+  },
+  {
+    username: 'user17',
+    nickname: 'nickname17',
+    success: true,
+    missionScore: 1017,
+  },
+  {
+    username: 'user18',
+    nickname: 'nickname18',
+    success: true,
+    missionScore: 1018,
+  },
+  {
+    username: 'user19',
+    nickname: 'nickname19',
+    success: true,
+    missionScore: 1019,
+  },
+  {
+    username: 'user20',
+    nickname: 'nickname20',
+    success: false,
+    missionScore: 1020,
+  },
+];

@@ -4,16 +4,9 @@ import GroundList from '../../components/common/mainPage/GroundList';
 import { withLayout } from '../../components/common/layout/Layout';
 import { CategoryTabBar } from '../../components/common/mainPage/CategoryTabBar';
 import { useGlobalContext } from '../../hooks/useGlobalContext';
+import { categoryMap } from '../../common/global-constants';
 
 function MainPage() {
-  const categoryMap = new Map();
-  categoryMap.set('1', 'CATEGORY_IT');
-  categoryMap.set('2', 'CATEGORY_LANGUAGE');
-  categoryMap.set('3', 'CATEGORY_DESIGN');
-  categoryMap.set('4', 'CATEGORY_MARKETING');
-  categoryMap.set('5', 'CATEGORY_SCHOOL');
-  categoryMap.set('6', 'CATEGORY_CERTIFICATION');
-
   const isAuthenticated = !!localStorage.getItem('Authorization');
   const context = useGlobalContext();
 
@@ -23,6 +16,7 @@ function MainPage() {
       ['platform', context.platform],
       ['category_id', categoryId],
     ]);
+
     context.setFilter(context.generateFilterString(filterMap));
     context.setCategoryId(categoryId);
   };

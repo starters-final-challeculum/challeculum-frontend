@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
@@ -32,11 +32,16 @@ const FileInput = tw.input`
   hidden
 `;
 
-function GroundAssignment({ mission, ground }) {
+function GroundAssignment({ mission, ground, createUserMission }) {
   const [file, setFile] = useState(null);
+  const fileInputRef = useRef();
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
+  };
+
+  const handleButtonClick = () => {
+    fileInputRef.current.click();
   };
 
   const checkIsTodayMission = (start, end) => {
@@ -91,22 +96,22 @@ function GroundAssignment({ mission, ground }) {
           {mission.assignment}
         </Text>
       </div>
-      { (ground.status === 'ongoing' && checkIsTodayMission(mission.startAt, mission.endAt)) && (
-        <>
-          <UploadArea>
-            {file ? (
-              <Text>{file.name}</Text>
-            ) : (
-              <button>
-                <UploadIcon icon={faUpload} />
-                <span>Upload file</span>
-              </button>
-            )}
-            <FileInput type="file" onChange={handleFileChange} />
-          </UploadArea>
-          <Button onClick={handleSubmit}>Submit</Button>
-        </>
-      )}
+      {/* { (ground.status === 'ongoing' && checkIsTodayMission(mission.startAt, mission.endAt)) && ( */}
+      <>
+        <UploadArea>
+          {file ? (
+            <Text>{file.name}</Text>
+          ) : (
+            <button onClick={handleButtonClick}>
+              <UploadIcon icon={faUpload} />
+              <span>Upload file</span>
+            </button>
+          )}
+          <FileInput type="file" name="file" ref={fileInputRef} onChange={handleFileChange} />
+        </UploadArea>
+        <Button onClick={handleSubmit}>Submit</Button>
+      </>
+      {/* )} */}
     </Card>
   );
 }
