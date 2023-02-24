@@ -35,7 +35,11 @@ function GroundDetailCard({
   const available = fetchIsAvailableGround;
   const ClickHandle = () => {
     if (available) {
-      createUserGround();
+      createUserGround().then(() => {
+        alert('OK');
+      }).catch(() => {
+        alert('Fail');
+      });
     } else {
       cancelUserGround();
     }
