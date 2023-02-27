@@ -10,17 +10,20 @@ function Cards() {
   const getInfo = () => {
     api.get('/user').then((response) => {
       setInfo(response.data);
+      console.log(response.data);
     });
   };
 
   const getMission = () => {
-    api.get('/mission/successrate').then((response) => {
+    api.get('/mission/success-rate').then((response) => {
       setMission(response.data);
+      console.log(response.data);
     });
   };
   const getOnGoing = () => {
     api.get('/mission/ongoing').then((response) => {
       setOnGoing(response.data);
+      console.log(response.data);
     });
   };
 

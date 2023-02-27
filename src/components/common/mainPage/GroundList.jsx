@@ -24,15 +24,15 @@ function GroundList() {
       <div className="bg-gradient-to-br from-red-300 to-blue-200 rounded-3xl p-4">
         {fetchData.map((item) => (
           <GroundElement
-            key={item.id}
-            id={item.id}
-            title={item.title}
-            level={item.level}
-            minCapacity={item.minCapacity}
-            maxCapacity={item.maxCapacity}
+            key={item.groundId}
+            id={item.groundId}
+            groundTitle={item.groundTitle}
+            lectureTitle={item.lectureTitle}
             deposit={item.deposit}
             startAt={item.startAt}
             endAt={item.endAt}
+            status={item.status}
+            numOfParticipants={item.numOfParticipants}
           />
         ))}
       </div>
