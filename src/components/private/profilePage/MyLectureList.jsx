@@ -8,7 +8,7 @@ function MyLectureList() {
   const navigate = useNavigate();
 
   const getLecture = async () => {
-    api.get('/userlecture').then((response) => {
+    api.get('user/me/lecture').then((response) => {
       setLecture(response.data);
       console.log(response.data);
     });
@@ -27,11 +27,10 @@ function MyLectureList() {
       {lecture && lecture.map((item) => (
         <GroundListCard key={item.id}>
           <div className="text-gray-700">
-            카테고리 :
-            {item.categoryId}
+            {item.categoryName}
           </div>
+          <div className="text-lg font-semibold">{item.lectureTitle}</div>
           <div>{item.platform}</div>
-          <div className="text-lg font-semibold">{item.title}</div>
           <div className="text-gray-700">
             강사:
             {item.instructor}

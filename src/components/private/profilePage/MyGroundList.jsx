@@ -20,6 +20,8 @@ function MyGroundList() {
     console.log('참여 신청 취소');
     api.delete(`/user/me/ground/${event.target.id}`).then((response) => {
       console.log(response);
+      alert('취소 완료!');
+      getMyGround();
     });
   };
   return (

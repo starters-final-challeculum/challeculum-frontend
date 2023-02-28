@@ -13,7 +13,7 @@ function AddMyLecture() {
   };
 
   const addUserLecture = (event) => {
-    api.post(`/userlecture/${event.target.id}`).then((response) => {
+    api.post(`/user/me/lecture/${event.target.id}`).then((response) => {
       console.log(event.target.id);
       console.log('수강중인 강의 등록 완료');
       alert('완료되었습니다. 현재 수강중인 강의 탭을 확인해주세요!');
@@ -28,7 +28,7 @@ function AddMyLecture() {
   return (
     <GroundListContainer>
       {lectureListAvailable && lectureListAvailable.map((item) => (
-        <GroundListCard key={item.id}>
+        <GroundListCard key={item.lectureId}>
           <div className="text-gray-700">
             카테고리 :
             {item.categoryId}
@@ -39,7 +39,7 @@ function AddMyLecture() {
             강사:
             {item.instructor}
           </div>
-          <Button id={item.id} onClick={addUserLecture}>내 강의에 추가하기</Button>
+          <Button id={item.lectureId} onClick={addUserLecture}>내 강의에 추가하기</Button>
         </GroundListCard>
       ))}
     </GroundListContainer>
