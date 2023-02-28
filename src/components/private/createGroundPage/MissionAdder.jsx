@@ -18,10 +18,6 @@ const FormWrapper = tw.div`
 
 const MissionForm = tw.div`mb-4`;
 
-const FormLabel = tw.label`
-  mb-2 font-medium text-gray-700 mr-2
-`;
-
 const FormInput = tw.input`
   border border-gray-300 rounded-md py-2 px-3 mb-3 w-full
   focus:outline-none focus:border-blue-400
@@ -48,7 +44,7 @@ export function MissionAdder({ getValues }) {
     register, control, handleSubmit, formState: { errors },
   } = useForm({
     defaultValues: {
-      forms: [{ assignment: '', startAt: '', endAt: '' }],
+      forms: [{ assignment: '', missionAt: '' }],
     },
   });
   const navigate = useNavigate();
@@ -63,44 +59,43 @@ export function MissionAdder({ getValues }) {
       missionList: data.forms,
     };
     console.log(allData);
-    api.post('/ground', allData)
-      .then((response) => {
-        navigate('/profile');
-        console.log(response.status);
-      }).catch(() => {
-        console.log('fail');
-      });
+    if (fields.length >= 7) {
+      api.post('/ground', allData)
+        .then((response) => {
+          navigate('/profile');
+          console.log(response.status);
+        }).catch(() => {
+          console.log('fail');
+        });
+    } else {
+      alert('미션은 매일 1개 이상이어야합니다.');
+    }
   };
 
   return (
     <FormWrapper>
       {fields.map((field, index) => (
         <MissionForm key={field.id}>
-          <div className="grid grid-cols-2 space-x-3 border-t-2 pt-4 border-t-emerald-600 border-opacity-30">
-            <div className="col-span-1">
-              <FormLabel>시작일</FormLabel>
-              <FormInput type="date" {...register(`forms.${index}.startAt`, { required: true })} />
-              {errors.forms && errors.forms[index]?.startAt && <FormError>시작일을 지정해 주세요</FormError>}
+          <div className="grid grid-cols-8 space-x-3 border-t-2 pt-4 border-t-gray-700 border-opacity-30">
+            <div className="col-span-2">
+              <FormInput type="date" {...register(`forms.${index}.missionAt`, { required: true })} />
+              {errors.forms && errors.forms[index]?.missionAt && <FormError>시작일을 지정해 주세요</FormError>}
             </div>
-            <div className="col-span-1">
-              <FormLabel>종료일</FormLabel>
-              <FormInput type="date" {...register(`forms.${index}.endAt`, { required: true })} />
-              {errors.forms && errors.forms[index]?.endAt && <FormError>종료일을 지정해 주세요</FormError>}
+            <div className="col-span-6">
+              <div className="grid grid-cols-6">
+                <FormInput placeholder="미션 내용을 입력해주세요!" className="col-span-5" type="text" {...register(`forms.${index}.assignment`, { required: true })} />
+                {errors.forms && errors.forms[index]?.assignment && <FormError>미션내용을 작성해주세요</FormError>}
+                <button type="button" onClick={() => remove(index)} className="col-span-1 grid place-content-center mb-2">
+                  <TiMinusOutline />
+                </button>
+              </div>
             </div>
-
-          </div>
-          <div className="grid grid-cols-8">
-            <FormInput placeholder="미션 내용을 입력해주세요!" className="col-span-7" type="text" {...register(`forms.${index}.assignment`, { required: true })} />
-            {errors.forms && errors.forms[index]?.assignment && <FormError>미션내용을 작성해주세요</FormError>}
-            <button type="button" onClick={() => remove(index)} className="col-span-1 grid place-content-center mb-2">
-              <TiMinusOutline />
-            </button>
           </div>
 
         </MissionForm>
       ))}
       <FormButtonWrapper>
-        <AddButton type="button" onClick={() => append({ assignment: '', startAt: '', endAt: '' })}>
+        <AddButton type="button" onClick={() => append({ assignment: '', missionAt: '' })}>
           <MdAddCircleOutline size={20} />
           <span>Add Mission</span>
         </AddButton>
