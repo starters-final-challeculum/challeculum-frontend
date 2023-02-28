@@ -36,18 +36,18 @@ function GroundListByMe() {
       {ground && ground.map((item) => (
         <GroundListCard key={item.groundId}>
           <div>{item.platform}</div>
-          <div className="text-lg font-semibold">{item.title}</div>
+          <div className="text-lg font-semibold">{item.groundTitle}</div>
           <div className="text-gray-700">
             {item.startAt}
             ~
             {item.endAt}
           </div>
           <div className="text-gray-700">
-            현재 참여인원
-            /
-            {item.maxCapacity}
+            참여인원 :
+            {item.numOfParticipants}
           </div>
           <div className="text-gray-700">
+            예치금 :
             {item.deposit}
           </div>
           <div>

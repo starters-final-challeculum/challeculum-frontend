@@ -1,36 +1,51 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import tw from 'tailwind-styled-components';
 import { useForm } from 'react-hook-form';
 import { Select } from '../../common/elements/Select';
 import { MissionAdder } from './MissionAdder';
+import api from '../../../common/axios-config';
+import { LectureSelect } from '../../common/elements/LectureSelect';
 
 function GroundForm() {
   const { register, getValues } = useForm();
+  const [lectureList, setLectureList] = useState([]);
+
+  const getLecture = async () => {
+    api.get('/user/me/lecture').then((response) => {
+      setLectureList(response.data);
+      console.log(response.data);
+    });
+  };
+
+  useEffect(() => {
+    getLecture();
+  }, []);
+
   return (
     <div className="justify-center flex">
       <form className="w-1/2">
-        <Container>
-          <label>
-            강의 선택
-            <Select
-              register={register}
-              name="lectureId"
-              options={['Java', 'JavaScript', 'Python', 'Clean Code']}
-            />
-          </label>
-        </Container>
-
         <Container>
           <label>
             그라운드 이름
             <BoundInput
               type="text"
               placeholder="제목을 입력해 주세요"
-              {...register('title', {
+              {...register('groundTitle', {
                 required: {
                   value: true,
                 },
               })}
+            />
+          </label>
+        </Container>
+
+        <Container>
+          <label>
+            강의 선택
+            <LectureSelect
+              register={register}
+              name="lectureId"
+              options={lectureList}
             />
           </label>
         </Container>
@@ -48,13 +63,6 @@ function GroundForm() {
 
         <Container>
           <label>
-            그라운드 레벨
-            <Select register={register} name="level" options={[1, 2, 3]} />
-          </label>
-        </Container>
-
-        <Container>
-          <label>
             최소 인원
             <BoundInput
               type="number"
@@ -62,40 +70,6 @@ function GroundForm() {
               max={100}
               placeholder="최소 인원"
               {...register('minCapacity', {
-                required: {
-                  value: true,
-                },
-              })}
-            />
-          </label>
-        </Container>
-
-        <Container>
-          <label>
-            최대 인원
-            <BoundInput
-              type="number"
-              min={2}
-              max={100}
-              placeholder="최대 인원"
-              {...register('maxCapacity', {
-                required: {
-                  value: true,
-                },
-              })}
-            />
-          </label>
-        </Container>
-
-        <Container>
-          <label>
-            미션 실패 면제 횟수
-            <BoundInput
-              type="number"
-              min={0}
-              max={100}
-              placeholder="면제 횟수"
-              {...register('missionFailLimit', {
                 required: {
                   value: true,
                 },
@@ -120,16 +94,14 @@ function GroundForm() {
             />
           </label>
         </Container>
-
-        <Container>
-          <label>
-            종료 날짜
-            <BoundInput
-              type="date"
-              {...register('endAt')}
-            />
-          </label>
-        </Container>
+        <input
+          type="hidden"
+          {...register('endAt', {
+            value: new Date(new Date(getValues('startAt')).getTime() + 7 * 24 * 60 * 60 * 1000)
+              .toISOString()
+              .substr(0, 10),
+          })}
+        />
 
         <MissionAdder getValues={getValues} />
       </form>

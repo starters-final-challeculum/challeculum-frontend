@@ -136,7 +136,7 @@ function MyInfo() {
               <label>
                 비밀번호
                 <BoundInput
-                  type="text"
+                  type="password"
                   required
                   ref={updatePassword}
                 />

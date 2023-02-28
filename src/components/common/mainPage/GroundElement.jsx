@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export function GroundElement({
-  id, title, level, minCapacity, maxCapacity, deposit, startAt, endAt,
+  id, groundTitle, lectureTitle, deposit, startAt, endAt, status, numOfParticipants,
 }) {
   const navigate = useNavigate();
   const navigateGroundDetail = () => {
@@ -11,30 +11,31 @@ export function GroundElement({
   return (
     <div key={id} className="bg-white p-4 my-4 rounded-lg shadow-md">
       <button onClick={navigateGroundDetail}>
-        <div className="text-lg font-semi-bold">{title}</div>
+        <div className="text-lg font-semi-bold">{groundTitle}</div>
         <div className="text-gray-700">
           <div>
-            Level:
-            {level}
+            강의명:
+            {lectureTitle}
           </div>
           <div>
-            Capacity:
-            {minCapacity}
-            {' '}
-            ~
-            {maxCapacity}
-          </div>
-          <div>
-            Deposit:
+            예치금:
             {deposit}
           </div>
           <div>
-            Period:
+            기간:
             {startAt}
-            {' '}
             ~
             {endAt}
           </div>
+          <div>
+            상태:
+            {status}
+          </div>
+          <div>
+            현재참여인원:
+            {numOfParticipants}
+          </div>
+
         </div>
       </button>
     </div>
