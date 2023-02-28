@@ -3,30 +3,22 @@ import tw from 'tailwind-styled-components';
 import api from '../../../common/axios-config';
 
 function MyGroundList() {
-  const [info, setInfo] = useState(null);
   const [ground, setGround] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await api.get('/user');
-        setInfo(response.data);
-        const userId = response.data?.id;
+  const getMyGround = async () => {
+    await api.get('/ground/me').then((response) => {
+      setGround(response.data);
+      console.log(response.data);
+    });
+  };
 
-        if (userId) {
-          const groundResponse = await api.get(`/my/ground/${userId}`);
-          setGround(groundResponse.data);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
+  useEffect(() => {
+    getMyGround();
   }, []);
 
   const onCancelHandler = (event) => {
     console.log('참여 신청 취소');
-    api.patch(`/userground/${event.target.id}`).then((response) => {
+    api.delete(`/user/me/ground/${event.target.id}`).then((response) => {
       console.log(response);
     });
   };
@@ -34,20 +26,24 @@ function MyGroundList() {
     <GroundListContainer>
       {ground.map((item) => (
         <GroundListCard key={item.groundId}>
-          <div>강의 플랫폼(이미지)</div>
-          <div className="text-lg font-semibold">{item.title}</div>
+          <div>
+            {item.categoryName}
+          </div>
+          <div className="text-lg font-semibold">{item.groundTitle}</div>
           <div className="text-gray-700">
             {item.startAt}
             ~
             {item.endAt}
           </div>
           <div className="text-gray-700">
-            현재참여인원
-            /
-            {item.maxCapacity}
+            현재참여인원:
+            {item.numOfParticipants}
           </div>
           <div className="text-gray-700">
             {item.deposit}
+          </div>
+          <div className="text-gray-700">
+            {item.status}
           </div>
           <Button id={item.groundId} onClick={onCancelHandler}>참여 취소</Button>
         </GroundListCard>
