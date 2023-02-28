@@ -24,9 +24,10 @@ function GroundListByMe() {
   };
 
   const onDeleteHandler = async (event) => {
-    console.log('status 확인 필요!');
     api.delete(`/ground/${event.target.id}`).then((response) => {
       console.log(response);
+      alert('삭제 완료!');
+      getGround();
     });
   };
 
@@ -54,7 +55,7 @@ function GroundListByMe() {
             현재 상태:
             {item.status}
           </div>
-          <Button id={item.groundId} onClick={onDeleteHandler}>그라운드 생성 취소</Button>
+          <Button id={item.groundId} onClick={onDeleteHandler}>그라운드 삭제</Button>
         </GroundListCard>
       ))}
     </GroundListContainer>

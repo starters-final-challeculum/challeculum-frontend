@@ -94,14 +94,6 @@ function GroundForm() {
             />
           </label>
         </Container>
-        <input
-          type="hidden"
-          {...register('endAt', {
-            value: new Date(new Date(getValues('startAt')).getTime() + 7 * 24 * 60 * 60 * 1000)
-              .toISOString()
-              .substr(0, 10),
-          })}
-        />
 
         <MissionAdder getValues={getValues} />
       </form>
