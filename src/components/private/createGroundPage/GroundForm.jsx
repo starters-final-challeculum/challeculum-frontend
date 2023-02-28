@@ -5,10 +5,19 @@ import { Select } from '../../common/elements/Select';
 import { MissionAdder } from './MissionAdder';
 import api from '../../../common/axios-config';
 import { LectureSelect } from '../../common/elements/LectureSelect';
+import { MissionForm } from './MissionForm';
 
 function GroundForm() {
   const { register, getValues } = useForm();
   const [lectureList, setLectureList] = useState([]);
+  const [startAt, setStartAt] = useState('');
+
+  const handleStartAtChange = (e) => {
+    setStartAt(e.target.value);
+    console.log(e.target.value);
+
+    console.log(startAt);
+  };
 
   const getLecture = async () => {
     api.get('/user/me/lecture').then((response) => {
@@ -91,19 +100,13 @@ function GroundForm() {
             <BoundInput
               type="date"
               {...register('startAt')}
+              value={startAt}
+              onChange={handleStartAtChange}
             />
           </label>
         </Container>
-        <input
-          type="hidden"
-          {...register('endAt', {
-            value: new Date(new Date(getValues('startAt')).getTime() + 7 * 24 * 60 * 60 * 1000)
-              .toISOString()
-              .substr(0, 10),
-          })}
-        />
+        {startAt && <MissionForm getValues={getValues} startAt={startAt} />}
 
-        <MissionAdder getValues={getValues} />
       </form>
     </div>
 
