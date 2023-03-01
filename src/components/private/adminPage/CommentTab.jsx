@@ -6,7 +6,7 @@ function CommentTab() {
   const [comment, setComment] = useState('');
 
   const getComment = async () => {
-    api.get('comment').then((response) => {
+    api.get('user/review/all').then((response) => {
       setComment(response.data);
       console.log(response.data);
     });
@@ -19,24 +19,26 @@ function CommentTab() {
   return (
     <ListContainer>
       {comment && comment.map((item) => (
-        <ListCard key={item.groundId} className="grid grid-cols-6">
+        <ListCard key={item.id} className="grid grid-cols-6">
           <FirstBox>
             <Info>
-              {item.categoryName}
+              그라운드 -
+              {' '}
+              {item.groundId}
             </Info>
-            <div className="text-lg font-semibold">{item.groundTitle}</div>
+            <div className="text-lg font-semibold">{item.comment}</div>
             <Info>
               {item.information}
             </Info>
           </FirstBox>
           <SecondBox>
             <Info>
-              생성한 유저 :
-              {item.createUserId}
+              작성자 ID :
+              {item.userId}
             </Info>
             <Info>
-              생성일 :
-              {item.createdAt}
+              ⭐️
+              {item.rating}
             </Info>
           </SecondBox>
           <ThirdBox>

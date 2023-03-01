@@ -16,32 +16,65 @@ function MissionTab() {
     getMission();
   }, []);
 
+  const onUpdateHandler = async (event) => {
+    api.put(`/user/me/mission/${event.target.id}`, {
+
+    }).then((response) => {
+      console.log(response);
+      alert('수정완료');
+      getMission();
+    });
+  };
+
+  // const updateInfo = () => {
+  //   api.patch('/user', {
+  //     nickname: updateNickname.current.value,
+  //     phone: updatePhone.current.value,
+  //     password: updatePassword.current.value,
+  //   }).then((response) => {
+  //     setInfo({
+  //       ...response.data,
+  //       username: info.username,
+  //     });
+  //     updateNickname.current.value = response.data.nickname;
+  //     updatePhone.current.value = response.data.phone;
+  //     updatePassword.current.value = response.data.password;
+  //     alert('수정완료');
+  //     setUpdateMode(false);
+  //     window.location.reload();
+  //   });
+  // };
+
   return (
     <ListContainer>
       {mission && mission.map((item) => (
-        <ListCard key={item.groundId} className="grid grid-cols-6">
+        <ListCard key={item.missionId} className="grid grid-cols-6">
           <FirstBox>
+            <div className="text-lg font-semibold">
+              상태 :
+              {item.isAccepted}
+            </div>
+
             <Info>
-              {item.categoryName}
+              제출일 :
+              {item.submitAt}
             </Info>
-            <div className="text-lg font-semibold">{item.groundTitle}</div>
             <Info>
-              {item.information}
+              유저 ID :
+              {item.userId}
             </Info>
           </FirstBox>
-          <SecondBox>
+          <ThirdBox className="col-end-7">
+            <Button id={item.missionId} onClick={onUpdateHandler}>미션 승인</Button>
+          </ThirdBox>
+          <SecondBox className="col-span-5">
             <Info>
-              생성한 유저 :
-              {item.createUserId}
-            </Info>
-            <Info>
-              생성일 :
-              {item.createdAt}
+              url :
+              {' '}
+              {item.imageUrl}
             </Info>
           </SecondBox>
-          <ThirdBox>
-            <Button>미션 승인</Button>
-          </ThirdBox>
+
         </ListCard>
       ))}
     </ListContainer>

@@ -18,29 +18,32 @@ function LectureTab() {
 
   return (
     <ListContainer>
+      <div className="flex justify-end">
+        <Button>신규 강의 등록</Button>
+      </div>
       {lecture && lecture.map((item) => (
-        <ListCard key={item.groundId} className="grid grid-cols-6">
+        <ListCard key={item.lectureId} className="grid grid-cols-8">
           <FirstBox>
             <Info>
               {item.categoryName}
             </Info>
-            <div className="text-lg font-semibold">{item.groundTitle}</div>
+            <div className="text-lg font-semibold">{item.lectureTitle}</div>
             <Info>
-              {item.information}
+              {item.url}
             </Info>
           </FirstBox>
           <SecondBox>
             <Info>
-              생성한 유저 :
-              {item.createUserId}
+              {item.platform}
             </Info>
             <Info>
-              생성일 :
-              {item.createdAt}
+              강사 :
+              {' '}
+              {item.instructor}
             </Info>
           </SecondBox>
           <ThirdBox>
-            <Button>강의 등록/ 삭제</Button>
+            <Button>강의 삭제</Button>
           </ThirdBox>
         </ListCard>
       ))}
@@ -58,7 +61,7 @@ const Info = tw.div`
 text-gray-700
 `;
 const FirstBox = tw.div`
-col-span-3
+col-span-5
 `;
 const SecondBox = tw.div`
 col-span-2
@@ -67,6 +70,6 @@ const ThirdBox = tw.div`
 col-span-1 flex justify-center items-center
 `;
 const Button = tw.button`
-    text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2
+    text-white bg-gray-800 hover:bg-gray-900 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2
 `;
 export default LectureTab;
