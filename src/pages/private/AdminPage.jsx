@@ -6,6 +6,7 @@ import AdminTabBar from '../../components/private/adminPage/AdminTabBar';
 
 function AdminPage() {
   const [info, setInfo] = useState({});
+  const [mission, setMission] = useState('');
   const navigate = useNavigate();
 
   const getInfo = () => {
@@ -15,8 +16,16 @@ function AdminPage() {
     });
   };
 
+  const getMission = async () => {
+    api.get('user/me/all').then((response) => {
+      setMission(response.data);
+      console.log(response.data);
+    });
+  };
+
   useEffect(() => {
     getInfo();
+    getMission();
   }, []);
 
   if (info.role !== 'ROLE_ADMIN') {
@@ -24,13 +33,21 @@ function AdminPage() {
     return null;
   }
 
+  const waitingMissionCount = mission.filter((m) => m.isAccepted === 'WAITING').length;
+
   return (
     <>
-      <div className="text-2xl">
+      <div className="text-2xl m-5">
         안녕하세요, 관리자
         {' '}
         {info.nickname}
         님!
+        <p>
+          오늘 검토 할 미션은
+          {' '}
+          {waitingMissionCount}
+          개 입니다.
+        </p>
       </div>
       <br />
       <AdminTabBar />

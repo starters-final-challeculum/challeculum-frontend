@@ -54,8 +54,8 @@ function Cards() {
         </div>
       </Card>
       <Card>
-        <div className="px-4 py-1 text-center">
-          <div className="font-bold text-xl mt-4 mb-2 text-white">오늘의 미션</div>
+        <div className="p-6 text-center">
+          <div className="font-bold text-2xl text-white">오늘의 미션</div>
           {onGoing && onGoing.map((item) => (
             <div key={item.id} className="text-white">
               {item.assignment}

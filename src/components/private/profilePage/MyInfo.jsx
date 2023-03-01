@@ -64,11 +64,11 @@ function MyInfo() {
   }, []);
 
   return (
-    <div>
+    <div className="mt-10">
       {!updateMode ? (
         <>
-          <div>
-            <FullWidth>
+          <InfoContainer>
+            <InfoBox>
               <label>
                 이메일
                 <BoundInput
@@ -76,8 +76,8 @@ function MyInfo() {
                   readOnly
                 />
               </label>
-            </FullWidth>
-            <FullWidth>
+            </InfoBox>
+            <InfoBox>
               <label>
                 닉네임
                 <BoundInput
@@ -85,8 +85,8 @@ function MyInfo() {
                   readOnly
                 />
               </label>
-            </FullWidth>
-            <FullWidth>
+            </InfoBox>
+            <InfoBox>
               <label>
                 휴대폰 번호
                 <BoundInput
@@ -94,14 +94,18 @@ function MyInfo() {
                   readOnly
                 />
               </label>
-            </FullWidth>
-          </div>
-          <Button onClick={onUpdateHandler}>내 정보 변경</Button>
+            </InfoBox>
+          </InfoContainer>
+          <ButtonContainer>
+            <Button onClick={onUpdateHandler}>내 정보 변경</Button>
+            <Button onClick={deleteUser}>회원 탈퇴</Button>
+          </ButtonContainer>
         </>
+
       ) : (
         <>
-          <div>
-            <FullWidth>
+          <InfoContainer>
+            <InfoBox>
               <label>
                 이메일
                 <BoundInput
@@ -109,8 +113,8 @@ function MyInfo() {
                   readOnly
                 />
               </label>
-            </FullWidth>
-            <FullWidth>
+            </InfoBox>
+            <InfoBox>
               <label>
                 닉네임
                 <BoundInput
@@ -120,8 +124,8 @@ function MyInfo() {
                   defaultValue={info.nickname}
                 />
               </label>
-            </FullWidth>
-            <FullWidth>
+            </InfoBox>
+            <InfoBox>
               <label>
                 휴대폰 번호
                 <BoundInput
@@ -131,8 +135,8 @@ function MyInfo() {
                   defaultValue={info.phone}
                 />
               </label>
-            </FullWidth>
-            <FullWidth>
+            </InfoBox>
+            <InfoBox>
               <label>
                 비밀번호
                 <BoundInput
@@ -141,34 +145,34 @@ function MyInfo() {
                   ref={updatePassword}
                 />
               </label>
-            </FullWidth>
-          </div>
-          <Button onClick={updateInfo}>수정</Button>
-          <Button onClick={onCancelHandler}>취소</Button>
+            </InfoBox>
+          </InfoContainer>
+          <ButtonContainer>
+            <Button onClick={updateInfo}>수정</Button>
+            <Button onClick={onCancelHandler}>취소</Button>
+          </ButtonContainer>
+
         </>
       )}
-
-      <FullWidth>
-        <div>
-          내 포인트 :
-          {info.point}
-        </div>
-        <Button>충전하기</Button>
-      </FullWidth>
-      <Button onClick={deleteUser}>회원 탈퇴</Button>
-
     </div>
 
   );
 }
 
-const FullWidth = tw.div`
-    relative w-1/2 lg:max-w-sm
-        `;
+const InfoContainer = tw.div`
+    flex flex-wrap justify-center
+`;
+const InfoBox = tw.div`
+    relative w-2/3 m-2
+`;
 const BoundInput = tw.input`
     w-full pl-2.5 pr-3 py-2 rounded-lg border-2 border-gray-200 outline-none
         `;
 const Button = tw.button`
-    text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2
+    text-white bg-gray-800 hover:bg-gray-900 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2
+`;
+
+const ButtonContainer = tw.div`
+    flex justify-center m-2
 `;
 export default MyInfo;

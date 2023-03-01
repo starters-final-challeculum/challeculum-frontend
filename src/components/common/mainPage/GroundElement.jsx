@@ -1,43 +1,86 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import tw from 'tailwind-styled-components';
+
+import coursera from '../../../static/images/coursera.png';
+import udemy from '../../../static/images/udemy.png';
+import inflearn from '../../../static/images/inflearn.png';
+
+const platformImages = {
+  PLATFORM_COURSERA: coursera,
+  PLATFORM_UDEMY: udemy,
+  PLATFORM_INFLEARN: inflearn,
+};
 
 export function GroundElement({
-  id, groundTitle, lectureTitle, deposit, startAt, endAt, status, numOfParticipants,
+  id, groundTitle, lectureTitle, deposit, startAt, endAt, status, numOfParticipants, platform,
 }) {
   const navigate = useNavigate();
   const navigateGroundDetail = () => {
     navigate(`/ground/${id}`);
   };
-  return (
-    <div key={id} className="mb-3 text-2xl font-bold text-white flex flex-col items-center border rounded-lg bg-gray-700">
-      <button onClick={navigateGroundDetail}>
-        <div className="text-lg font-semi-bold">{groundTitle}</div>
-        <div className="text-white">
-          <div>
-            강의명:
-            {lectureTitle}
-          </div>
-          <div>
-            예치금:
-            {deposit}
-          </div>
-          <div>
-            기간:
-            {startAt}
-            ~
-            {endAt}
-          </div>
-          <div className={`text-${status === 'ground_completed' ? 'border-l-blue-400' : 'gray'}-300`}>
-            상태:
-            {status}
-          </div>
-          <div>
-            현재참여인원:
-            {numOfParticipants}
-          </div>
+  const platformImage = platformImages[platform];
 
-        </div>
-      </button>
-    </div>
+  let statusMessage;
+  if (status === 'GROUND_COMPLETED') {
+    statusMessage = '완료';
+  } else if (status === 'GROUND_ONGOING') {
+    statusMessage = '진행 중';
+  } else if (status === 'GROUND_STANDBY') {
+    statusMessage = '모집 중';
+  }
+  return (
+    <ListCard key={id} className="grid grid-cols-10" onClick={navigateGroundDetail}>
+      <ImageBox>
+        <img src={platformImage} alt={platform} />
+      </ImageBox>
+      <FirstBox>
+        <Info>
+          {lectureTitle}
+        </Info>
+        <div className="text-lg font-semibold mb-2">{groundTitle}</div>
+        <Info>
+          {startAt}
+          {' '}
+          ~
+          {endAt}
+        </Info>
+      </FirstBox>
+      <SecondBox>
+        <br />
+        <Info>
+          예치금 :
+          {' '}
+          {deposit}
+        </Info>
+        <Info>
+          현재 참여 인원 :
+          {' '}
+          {numOfParticipants}
+        </Info>
+      </SecondBox>
+      <ThirdBox className="text-xl text-gray-800">
+        {statusMessage}
+      </ThirdBox>
+    </ListCard>
   );
 }
+
+const ListCard = tw.div`
+  bg-white p-4 my-4 rounded-lg shadow-md
+`;
+const Info = tw.div`
+text-gray-700
+`;
+const ImageBox = tw.div`
+col-span-2 m-2
+`;
+const FirstBox = tw.div`
+col-span-4 m-2
+`;
+const SecondBox = tw.div`
+col-span-2 m-2
+`;
+const ThirdBox = tw.div`
+col-span-2 m-2 flex justify-center items-center
+`;

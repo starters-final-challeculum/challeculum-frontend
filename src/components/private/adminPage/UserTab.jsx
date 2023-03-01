@@ -19,28 +19,27 @@ function UserTab() {
   return (
     <ListContainer>
       {user && user.map((item) => (
-        <ListCard key={item.groundId} className="grid grid-cols-6">
+        <ListCard key={item.userId} className="grid grid-cols-6">
           <FirstBox>
+            <div className="text-lg font-semibold">{item.nickname}</div>
             <Info>
-              {item.categoryName}
+              {item.username}
             </Info>
-            <div className="text-lg font-semibold">{item.groundTitle}</div>
             <Info>
-              {item.information}
+              {item.phone}
             </Info>
           </FirstBox>
           <SecondBox>
             <Info>
-              생성한 유저 :
-              {item.createUserId}
+              {item.role}
             </Info>
             <Info>
-              생성일 :
-              {item.createdAt}
+              포인트 :
+              {item.point}
             </Info>
           </SecondBox>
           <ThirdBox>
-            <Button>미션 승인</Button>
+            <Button>삭제</Button>
           </ThirdBox>
         </ListCard>
       ))}

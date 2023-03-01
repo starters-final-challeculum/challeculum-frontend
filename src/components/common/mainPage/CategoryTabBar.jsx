@@ -14,7 +14,7 @@ export function CategoryTabBar({ tabs, activeCategory, onTabClick }) {
           key={key}
           value={value.id}
           className={`flex-grow py-2 px-4 border-b-2 border-transparent text-gray-500 hover:text-gray-800 hover:border-gray-500 focus:outline-none ${
-            isActivated(key) ? 'border-indigo-500 text-indigo-600' : ''
+            isActivated(key) ? 'border-gray-900 text-black-900 text-xl font-medium' : ''
           }`}
           onClick={() => handleClick(value.id)}
         >

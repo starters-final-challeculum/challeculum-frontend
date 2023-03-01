@@ -46,6 +46,9 @@ function GroundTab() {
               생성일 :
               {item.createdAt}
             </Info>
+            <Info>
+              {item.status}
+            </Info>
           </SecondBox>
           <ThirdBox>
             <Button id={item.groundId} onClick={onDeleteHandler}>그라운드 삭제</Button>
