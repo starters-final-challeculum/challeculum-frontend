@@ -47,7 +47,9 @@ function MyGroundList() {
           <div className="text-gray-700">
             {item.status}
           </div>
-          <Button id={item.groundId} onClick={onCancelHandler}>참여 취소</Button>
+          <div className="flex justify-end">
+            <Button id={item.groundId} onClick={onCancelHandler}>참여 취소</Button>
+          </div>
         </GroundListCard>
       ))}
     </GroundListContainer>

@@ -19,25 +19,23 @@ function MyGroundCardList() {
             navigate(`/ground/${item.groundId}`);
           }}
           >
-            <div key={item.groundId} className="w-64 flex-shrink-0 mr-4">
-              <div className="bg-white rounded-lg shadow-lg">
-                <div className="p-4">
-                  <div className="text-xl font-bold mb-2">{item.groundTitle}</div>
-                  <div className="mb-2">
-                    <span className={`text-gray-700 font-bold mr-2 ${dDay >= 0 ? 'text-gray-700' : 'text-red-700'}`}>
-                      {dDay >= 0 ? `종료까지 ${dDay}일 남음` : '종료'}
-                    </span>
-                  </div>
-                  <div className="mb-2">
-                    <span className="text-gray-700 font-bold mr-2">오늘의 미션</span>
-                    <span className="text-green-700">
-                      {item.missionList.filter((mission) => mission.missionAt === today).map((mission) => (
-                        <div key={mission.id}>
-                          <span>{mission.assignment}</span>
-                        </div>
-                      ))}
-                    </span>
-                  </div>
+            <div key={item.groundId} className="w-64 flex-shrink-0 mr-4 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+              <div className="p-4">
+                <div className="text-xl text-white font-bold mb-2">{item.groundTitle}</div>
+                <div className="mb-2">
+                  <span className={`text-white font-bold mr-2 ${dDay >= 0 ? 'text-gray-700' : 'text-red-700'}`}>
+                    {dDay >= 0 ? `종료까지 ${dDay}일 남음` : '종료'}
+                  </span>
+                </div>
+                <div className="mb-2">
+                  <span className="text-white font-bold mr-2">오늘의 미션</span>
+                  <span className="text-gray-400 font-bold">
+                    {item.missionList.filter((mission) => mission.missionAt === today).map((mission) => (
+                      <div key={mission.id}>
+                        <span>{mission.assignment}</span>
+                      </div>
+                    ))}
+                  </span>
                 </div>
               </div>
             </div>

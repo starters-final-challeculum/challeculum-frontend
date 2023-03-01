@@ -36,15 +36,17 @@ function Cards() {
   return (
     <CardContainer>
       <Card>
-        <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2">내 미션 점수</div>
-          <p>{info.missionScore}</p>
+        <div className="p-6 text-center">
+          <h5 className="mb-3 text-2xl font-bold text-white">미션 점수</h5>
+          <p className="text-gray-300 text-6xl">
+            {info.missionScore}
+          </p>
         </div>
       </Card>
       <Card>
-        <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2">내 미션 수행률</div>
-          <p>
+        <div className="p-6 text-center">
+          <h5 className="mb-3 text-2xl font-bold text-white">미션 수행률</h5>
+          <p className="text-gray-300 text-6xl">
             {mission}
             {' '}
             %
@@ -52,17 +54,15 @@ function Cards() {
         </div>
       </Card>
       <Card>
-        <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2">오늘의 미션</div>
+        <div className="px-4 py-1 text-center">
+          <div className="font-bold text-xl mt-4 mb-2 text-white">오늘의 미션</div>
           {onGoing && onGoing.map((item) => (
-            <div key={item.id}>
-              <div>
-                {item.assignment}
-              </div>
-              <div>
+            <div key={item.id} className="text-white">
+              {item.assignment}
+              <div className="text-gray-300">
                 {item.missionAt}
               </div>
-              <div>
+              <div className="text-gray-400">
                 {item.groundTitle}
               </div>
             </div>
@@ -78,6 +78,6 @@ const CardContainer = tw.div`
     p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-5
     `;
 const Card = tw.div`
-    rounded overflow-hidden shadow-lg
+  bg-gray-800 border rounded-lg
 `;
 export default Cards;

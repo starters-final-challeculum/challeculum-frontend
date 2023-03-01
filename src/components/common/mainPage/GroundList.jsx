@@ -20,8 +20,8 @@ function GroundList() {
   }, [fetchDataHandler, context]);
 
   return (
-    <div className="h-screen overflow-y-scroll shadow-md hover:shadow-lg">
-      <div className="bg-gradient-to-br from-red-300 to-blue-200 rounded-3xl p-4">
+    <div className="h-screen overflow-y-scroll">
+      <div className="mb-3 bg-gradient-to-br from-red-300 to-blue-200 rounded-3xl p-4">
         {fetchData.map((item) => (
           <GroundElement
             key={item.groundId}
