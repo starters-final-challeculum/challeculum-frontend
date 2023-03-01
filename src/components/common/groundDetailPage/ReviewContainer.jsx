@@ -22,6 +22,7 @@ export function ReviewContainer({
     fetchData();
   }, [fetchReviewList]);
   const reviewable = fetchIsReviewableUser();
+  console.log(reviews);
   return (
     <Container>
       <ReviewList reviews={reviews} />
