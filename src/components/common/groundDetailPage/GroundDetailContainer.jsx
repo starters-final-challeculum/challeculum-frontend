@@ -9,6 +9,7 @@ function GroundDetailContainer() {
   const getGround = () => {
     api.get(`/ground/${param.groundId}`).then((response) => {
       setGround(response.data);
+      console.log(response.data);
     });
   };
 

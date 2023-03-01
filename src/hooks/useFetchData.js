@@ -1,23 +1,15 @@
 import { useEffect, useState } from 'react';
 import api from '../common/axios-config';
-import { useSearch } from './useSearch';
+import { useGlobalContext } from './useGlobalContext';
 
-function useFetchData(url, page) {
+function useFetchData(url, params) {
   const [data, setData] = useState([]);
-  const context = useSearch();
+  const context = useGlobalContext();
   useEffect(() => {
     const fetchData = async () => {
-      const params = {
-        page,
-        filter: context.filter ? context.filter : undefined,
-        keyword: context.keyword ? context.keyword : undefined,
-        sortBy: context.sortBy,
-        orderBy: context.orderBy,
-      };
-      console.log(params);
-      // console.log(params);
       const result = await api.get(url, { params });
       setData(result.data);
+      console.log(result.data);
     };
     fetchData();
   }, [url, context]);

@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import { useSearch } from '../../../hooks/useSearch';
+import React from 'react';
+import { useGlobalContext } from '../../../hooks/useGlobalContext';
 
 export function GroundFilter() {
-  const context = useSearch();
-  const filterMap = new Map([
-    ['status', context.status],
-    ['platform', context.platform],
-    ['category_id', context.category],
-  ]);
+  const context = useGlobalContext();
 
   const handleFilterChange = (key, value) => {
+    const filterMap = new Map([
+      ['status', context.status],
+      ['platform', context.platform],
+      ['category_id', context.categoryId],
+    ]);
+    console.log(context.filter);
     if (value === '') {
       filterMap.delete(key);
     } else {
@@ -35,23 +36,6 @@ export function GroundFilter() {
           <option value="FASTCAMPUS">패스트캠퍼스</option>
         </select>
       </div>
-      {/* <div className="relative mx-3"> */}
-      {/*  <select */}
-      {/*    onChange={(event) => { */}
-      {/*      handleFilterChange('category_id', event.target.value); */}
-      {/*      context.setCategory(event.target.value); */}
-      {/*    }} */}
-      {/*    value={context.category} */}
-      {/*    className="rounded-full px-2 py-3 text-gray-800 font-medium focus:outline-none hover:bg-gray-100" */}
-      {/*  > */}
-      {/*    <option value="">전체</option> */}
-      {/*    <option value="1">IT</option> */}
-      {/*    <option value="2">언어</option> */}
-      {/*    <option value="3">디자인</option> */}
-      {/*    <option value="4">마케팅</option> */}
-      {/*    <option value="5">자격증</option> */}
-      {/*  </select> */}
-      {/* </div> */}
       <div className="relative mx-2">
         <select
           onChange={(event) => {
@@ -61,7 +45,8 @@ export function GroundFilter() {
           value={context.status}
           className="rounded-full px-2 py-3 text-gray-800 font-medium focus:outline-none hover:bg-gray-100"
         >
-          <option value="waiting">모집중</option>
+          <option value="all">전체</option>
+          <option value="standby">모집중</option>
           <option value="ongoing">진행중</option>
           <option value="completed">종료됨</option>
         </select>

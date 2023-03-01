@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      minWidth: {
+        '1/2': '50%',
+      },
       colors: {
         mBlack: '#222831',
         mGray: '#393E46',

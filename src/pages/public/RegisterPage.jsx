@@ -1,13 +1,14 @@
 import React from 'react';
-import { RegisterForm } from '../../components/public/registerPage/RegisterForm';
-import Container from '../../components/common/layout/Container';
 import { withLayout } from '../../components/common/layout/Layout';
+import { RegisterForm } from '../../components/public/registerPage/RegisterForm';
 
 function RegisterPage() {
   return (
-    <Container>
-      <RegisterForm />
-    </Container>
+    <div className="m-20 flex items-center justify-center">
+      <div className="bg-white p-6 rounded-lg shadow-lg w-1/2">
+        <RegisterForm />
+      </div>
+    </div>
   );
 }
 

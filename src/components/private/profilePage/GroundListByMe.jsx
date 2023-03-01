@@ -24,9 +24,10 @@ function GroundListByMe() {
   };
 
   const onDeleteHandler = async (event) => {
-    console.log('status 확인 필요!');
     api.delete(`/ground/${event.target.id}`).then((response) => {
       console.log(response);
+      alert('삭제 완료!');
+      getGround();
     });
   };
 
@@ -35,22 +36,26 @@ function GroundListByMe() {
       <Button onClick={onCreateHandler}>그라운드 생성</Button>
       {ground && ground.map((item) => (
         <GroundListCard key={item.groundId}>
-          <div>강의 플랫폼(이미지)</div>
-          <div className="text-lg font-semibold">{item.title}</div>
+          <div>{item.platform}</div>
+          <div className="text-lg font-semibold">{item.groundTitle}</div>
           <div className="text-gray-700">
             {item.startAt}
             ~
             {item.endAt}
           </div>
           <div className="text-gray-700">
-            현재참여인원
-            /
-            {item.maxCapacity}
+            참여인원 :
+            {item.numOfParticipants}
           </div>
           <div className="text-gray-700">
+            예치금 :
             {item.deposit}
           </div>
-          <Button id={item.groundId} onClick={onDeleteHandler}>그라운드 생성 취소</Button>
+          <div>
+            현재 상태:
+            {item.status}
+          </div>
+          <Button id={item.groundId} onClick={onDeleteHandler}>그라운드 삭제</Button>
         </GroundListCard>
       ))}
     </GroundListContainer>

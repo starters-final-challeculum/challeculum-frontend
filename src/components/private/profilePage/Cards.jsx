@@ -10,17 +10,20 @@ function Cards() {
   const getInfo = () => {
     api.get('/user').then((response) => {
       setInfo(response.data);
+      console.log(response.data);
     });
   };
 
   const getMission = () => {
-    api.get('/mission/successrate').then((response) => {
+    api.get('/mission/success-rate').then((response) => {
       setMission(response.data);
+      console.log(response.data);
     });
   };
   const getOnGoing = () => {
     api.get('/mission/ongoing').then((response) => {
       setOnGoing(response.data);
+      console.log(response.data);
     });
   };
 
@@ -41,22 +44,26 @@ function Cards() {
       <Card>
         <div className="px-6 py-4">
           <div className="font-bold text-xl mb-2">내 미션 수행률</div>
-          <p>{mission}</p>
+          <p>
+            {mission}
+            {' '}
+            %
+          </p>
         </div>
       </Card>
       <Card>
         <div className="px-6 py-4">
           <div className="font-bold text-xl mb-2">오늘의 미션</div>
-          {onGoing && onGoing.map((one) => (
-            <div key={one.id}>
+          {onGoing && onGoing.map((item) => (
+            <div key={item.id}>
               <div>
-                {one.assignment}
+                {item.assignment}
               </div>
               <div>
-                {one.startAt}
+                {item.missionAt}
               </div>
               <div>
-                {one.endAt}
+                {item.groundTitle}
               </div>
             </div>
           ))}
