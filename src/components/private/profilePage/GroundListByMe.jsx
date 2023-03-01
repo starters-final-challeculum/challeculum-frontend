@@ -33,7 +33,9 @@ function GroundListByMe() {
 
   return (
     <GroundListContainer>
-      <Button onClick={onCreateHandler}>그라운드 생성</Button>
+      <div className="flex justify-end">
+        <Button onClick={onCreateHandler}>그라운드 생성</Button>
+      </div>
       {ground && ground.map((item) => (
         <GroundListCard key={item.groundId}>
           <div>{item.platform}</div>
@@ -55,7 +57,9 @@ function GroundListByMe() {
             현재 상태:
             {item.status}
           </div>
-          <Button id={item.groundId} onClick={onDeleteHandler}>그라운드 삭제</Button>
+          <div className="flex justify-end">
+            <Button id={item.groundId} onClick={onDeleteHandler}>그라운드 삭제</Button>
+          </div>
         </GroundListCard>
       ))}
     </GroundListContainer>
