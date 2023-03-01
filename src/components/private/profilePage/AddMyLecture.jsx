@@ -39,7 +39,9 @@ function AddMyLecture() {
             강사:
             {item.instructor}
           </div>
-          <Button id={item.lectureId} onClick={addUserLecture}>내 강의에 추가하기</Button>
+          <div className="flex justify-end">
+            <Button id={item.lectureId} onClick={addUserLecture}>내 강의에 추가하기</Button>
+          </div>
         </GroundListCard>
       ))}
     </GroundListContainer>

@@ -2,6 +2,7 @@ import React from 'react';
 
 import tw from 'tailwind-styled-components';
 import { GridUserCard } from './GridUserCard';
+import { dummyUsers } from '../../../common/mock-datas';
 
 const Container = tw.div`max-h-96 overflow-y-auto bg-gray-700 p-4 rounded-2xl mb-8`;
 
@@ -17,7 +18,7 @@ export function RemainUserGrid({ fetchUserList, fetchReward }) {
         {reward}
       </div>
       <Grid>
-        {users.map(({ username, success }, index) => (
+        {dummyUsers.map(({ username, success }, index) => (
           <GridUserCard key={index} username={username} success={success} />
         ))}
       </Grid>

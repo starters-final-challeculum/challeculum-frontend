@@ -35,7 +35,9 @@ function MyLectureList() {
             강사:
             {item.instructor}
           </div>
-          <Button onClick={onCreateGroundHandler}>그라운드 생성하기</Button>
+          <div className="flex justify-end">
+            <Button onClick={onCreateGroundHandler}>그라운드 생성하기</Button>
+          </div>
         </GroundListCard>
       ))}
     </GroundListContainer>

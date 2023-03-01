@@ -1,5 +1,6 @@
 import React from 'react';
 import { useGlobalContext } from '../../../hooks/useGlobalContext';
+import { groundStatus, platforms } from '../../../common/global-constants';
 
 export function GroundFilter() {
   const context = useGlobalContext();
@@ -8,7 +9,7 @@ export function GroundFilter() {
     const filterMap = new Map([
       ['status', context.status],
       ['platform', context.platform],
-      ['category_id', context.categoryId],
+      ['category_name', context.categoryName],
     ]);
     console.log(context.filter);
     if (value === '') {
@@ -31,9 +32,9 @@ export function GroundFilter() {
           className="rounded-full px-2 py-3 text-gray-800 font-medium focus:outline-none hover:bg-gray-100"
         >
           <option value="">플랫폼</option>
-          <option value="UDEMY">유데미</option>
-          <option value="INFLEARN">인프런</option>
-          <option value="FASTCAMPUS">패스트캠퍼스</option>
+          <option value={platforms.udemy}>유데미</option>
+          <option value={platforms.inflearn}>인프런</option>
+          <option value={platforms.coursera}>코세라</option>
         </select>
       </div>
       <div className="relative mx-2">
@@ -45,10 +46,10 @@ export function GroundFilter() {
           value={context.status}
           className="rounded-full px-2 py-3 text-gray-800 font-medium focus:outline-none hover:bg-gray-100"
         >
-          <option value="all">전체</option>
-          <option value="standby">모집중</option>
-          <option value="ongoing">진행중</option>
-          <option value="completed">종료됨</option>
+          <option value="">전체</option>
+          <option value={groundStatus.standby}>모집중</option>
+          <option value={groundStatus.ongoing}>진행중</option>
+          <option value={groundStatus.completed}>종료됨</option>
         </select>
       </div>
     </>

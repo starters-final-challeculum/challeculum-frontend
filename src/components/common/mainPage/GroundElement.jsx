@@ -9,10 +9,10 @@ export function GroundElement({
     navigate(`/ground/${id}`);
   };
   return (
-    <div key={id} className="bg-white p-4 my-4 rounded-lg shadow-md">
+    <div key={id} className="mb-3 text-2xl font-bold text-white flex flex-col items-center border rounded-lg bg-gray-700">
       <button onClick={navigateGroundDetail}>
         <div className="text-lg font-semi-bold">{groundTitle}</div>
-        <div className="text-gray-700">
+        <div className="text-white">
           <div>
             강의명:
             {lectureTitle}
@@ -27,7 +27,7 @@ export function GroundElement({
             ~
             {endAt}
           </div>
-          <div>
+          <div className={`text-${status === 'ground_completed' ? 'border-l-blue-400' : 'gray'}-300`}>
             상태:
             {status}
           </div>
