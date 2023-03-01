@@ -1,9 +1,8 @@
 import React from 'react';
-import {
-  faWallet, faUsers, faCalendarAlt, faExclamationTriangle,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faUsers, faWallet } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import tw from 'tailwind-styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const Card = tw.div`
   bg-white shadow-lg rounded-lg px-6 py-8 mb-12
@@ -30,18 +29,30 @@ const Info = tw.div`
 `;
 
 function GroundDetailCard({
-  ground, fetchIsAvailableGround, createUserGround, cancelUserGround,
+  ground, fetchIsAvailableGround, createUserGround, cancelUserGround, createUserLecture,
 }) {
-  const available = fetchIsAvailableGround;
+  const available = fetchIsAvailableGround();
+
   const ClickHandle = () => {
     if (available) {
-      createUserGround().then(() => {
-        alert('OK');
-      }).catch(() => {
-        alert('Fail');
-      });
+      createUserGround()
+        .then(() => {
+          alert('그라운드 참여 신청 되었습니다.');
+          window.location.reload();
+        })
+        .catch(({ response }) => {
+          const confirm = window.confirm(response.data.detail);
+          if (confirm) {
+            createUserLecture(ground.lectureId);
+            alert('내가 수강하는 강의 등록 완료 되었습니다.');
+            window.location.reload();
+          }
+        });
     } else {
-      cancelUserGround();
+      cancelUserGround().then(() => {
+        alert('그라운드 참여 취소 처리 되었습니다');
+        window.location.reload();
+      });
     }
   };
   return (
@@ -60,30 +71,28 @@ function GroundDetailCard({
         <IconText>
           <FontAwesomeIcon icon={faUsers} className="mr-2" />
           <span>
-            수용가능 인원:
+            최소 인원:
             {' '}
             {ground.minCapacity}
             {' '}
-            -
+          </span>
+        </IconText>
+        <IconText>
+          <FontAwesomeIcon icon={faUsers} className="mr-2" />
+          <span>
+            현재 참여 인원:
             {' '}
-            {ground.maxCapacity}
+            {ground.numOfParticipants}
+            {' '}
           </span>
         </IconText>
         <IconText>
           <FontAwesomeIcon icon={faCalendarAlt} className="mr-2" />
           <span>
-            기간:
             {ground.startAt}
             {' '}
             -
             {ground.endAt}
-          </span>
-        </IconText>
-        <IconText>
-          <FontAwesomeIcon icon={faExclamationTriangle} className="mr-2" />
-          <span>
-            면제횟수:
-            {ground.missionFailLimit}
           </span>
         </IconText>
         <IconText>

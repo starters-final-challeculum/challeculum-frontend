@@ -12,18 +12,18 @@ import api from '../../common/axios-config';
 function GroundDetailPage() {
   const params = useParams();
   const ground = useFetchData(`/ground/${params.groundId}`);// 성공
-  const fetchMissionList = () => useFetchData(`/mission/${params.groundId}`);
-
-  const fetchUserList = () => useFetchData(`/userground/${params.groundId}`);
-  const fetchIsAvailableGround = () => useFetchData(`/userground/available/${params.groundId}`);
-  const fetchReward = () => useFetchData(`/userground/reward/${params.groundId}`);
+  const fetchMissionList = () => useFetchData(`/mission/${params.groundId}`); // cheked
+  const fetchUserList = () => useFetchData(`/ground/${params.groundId}/user`);
+  const fetchIsAvailableGround = () => useFetchData(`/user/me/ground/${params.groundId}/available`); // new url
+  const fetchReward = () => useFetchData(`/ground/${params.groundId}/reward`); // new url
   const fetchSuccessUserList = () => useFetchData(`/ground/${params.groundId}/user/success`);// 성공
-  const fetchIsReviewableUser = () => useFetchData(`/user/me/ground/${params.groundId}/review/available`);
-  const fetchReviewList = () => useFetchData(`/ground/${params.groundId}/review`);
-  const createUserGround = () => api.post(`/userground/${params.groundId}`);
-  const cancelUserGround = () => api.patch('/userground');
-  const createUserMission = (missionId) => api.post(`/usermission/${missionId}`);
-  const reviewUserGround = (reviewForm) => api.patch(`/userground/review/${params.groundId}`, reviewForm);
+  const fetchIsReviewableUser = () => useFetchData(`/user/me/ground/${params.groundId}/review/available`); // new url
+  const fetchReviewList = () => useFetchData(`/ground/${params.groundId}/review`); // new url
+  const createUserGround = () => api.post(`/user/me/ground/${params.groundId}`); // new url
+  const cancelUserGround = () => api.delete(`user/me/ground/${params.groundId}`); // new url
+  const createUserMission = (missionId) => api.post(`/user/me/mission/${missionId}`); // new url
+  const reviewUserGround = (reviewForm) => api.patch(`user/me/ground/${params.groundId}/review`, reviewForm); // new url
+  const createUserLecture = (lectureId) => api.post(`user/me/lecture/${lectureId}`);
 
   const componentMap = new Map([
     ['GroundDetailCard', <GroundDetailCard
@@ -31,6 +31,7 @@ function GroundDetailPage() {
       fetchIsAvailableGround={fetchIsAvailableGround}
       createUserGround={createUserGround}
       cancelUserGround={cancelUserGround}
+      createUserLecture={createUserLecture}
     />],
     ['GroundMissionList', <GroundMissionList
       ground={ground}

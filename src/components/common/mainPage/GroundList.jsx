@@ -21,6 +21,7 @@ function GroundList() {
 
   return (
     <div className="h-screen overflow-y-scroll shadow-md hover:shadow-lg">
+      <h1 className="text-3xl mb-8">그라운드에 참여하세요 !</h1>
       <div className="bg-gradient-to-br from-red-300 to-blue-200 rounded-3xl p-4">
         {fetchData.map((item) => (
           <GroundElement
