@@ -11,14 +11,15 @@ import api from '../../common/axios-config';
 
 function GroundDetailPage() {
   const params = useParams();
-  const ground = useFetchData(`/ground/${params.groundId}`);
+  const ground = useFetchData(`/ground/${params.groundId}`);// 성공
   const fetchMissionList = () => useFetchData(`/mission/${params.groundId}`);
+
   const fetchUserList = () => useFetchData(`/userground/${params.groundId}`);
   const fetchIsAvailableGround = () => useFetchData(`/userground/available/${params.groundId}`);
   const fetchReward = () => useFetchData(`/userground/reward/${params.groundId}`);
-  const fetchSuccessUserList = () => useFetchData(`/userground/success/${params.groundId}`);
-  const fetchIsReviewableUser = () => useFetchData(`/userground/review-available/${params.groundId}`);
-  const fetchReviewList = () => useFetchData(`/userground/review/${params.groundId}`);
+  const fetchSuccessUserList = () => useFetchData(`/ground/${params.groundId}/user/success`);// 성공
+  const fetchIsReviewableUser = () => useFetchData(`/user/me/ground/${params.groundId}/review/available`);
+  const fetchReviewList = () => useFetchData(`/ground/${params.groundId}/review`);
   const createUserGround = () => api.post(`/userground/${params.groundId}`);
   const cancelUserGround = () => api.patch('/userground');
   const createUserMission = (missionId) => api.post(`/usermission/${missionId}`);
@@ -52,20 +53,20 @@ function GroundDetailPage() {
 
   return (
     <>
-      { ground.status === 'standby' && (
+      { ground.status === 'GROUND_STANDBY' && (
       <>
         {componentMap.get('GroundDetailCard')}
         {componentMap.get('GroundMissionList')}
       </>
       )}
-      { ground.status === 'ongoing' && (
+      { ground.status === 'GROUND_ONGOING' && (
       <>
         {componentMap.get('GroundMissionList')}
         {componentMap.get('RemainUserGrid')}
         {componentMap.get('GroundDetailCard')}
       </>
       )}
-      { ground.status === 'completed' && (
+      { ground.status === 'GROUND_COMPLETED' && (
       <>
         {componentMap.get('SuccessUserList')}
         {componentMap.get('ReviewContainer')}
