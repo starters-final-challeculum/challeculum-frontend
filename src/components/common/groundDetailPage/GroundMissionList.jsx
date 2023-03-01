@@ -17,7 +17,7 @@ function GroundMissionList({ ground, fetchMissionList, createUserMission }) {
       <List>
         {missionList.map((mission) => (
           <MissionCard
-            key={mission.id}
+            key={mission.missionId}
             ground={ground}
             mission={mission}
             createUserMission={createUserMission}

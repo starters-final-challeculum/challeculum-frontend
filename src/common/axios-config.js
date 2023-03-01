@@ -14,9 +14,9 @@ api.interceptors.request.use((config) => {
     config = {
       ...config,
       headers: {
+        'Content-Type': 'application/json',
         ...config.headers,
         Authorization: token,
-        'Content-Type': 'application/json',
       },
     };
   }

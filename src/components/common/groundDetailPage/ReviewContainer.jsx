@@ -8,25 +8,18 @@ const Container = tw.div`w-full h-80 overflow-y-auto bg-gray-100`;
 export function ReviewContainer({
   fetchReviewList, fetchIsReviewableUser, reviewUserGround,
 }) {
-  const [reviews, setReviews] = useState([]);
-  const handleSubmit = (review) => {
-    reviewUserGround(review);
-    setReviews([...reviews, review]);
+  let reviewable = false;
+  reviewable = fetchIsReviewableUser();
+  const reviewList = fetchReviewList();
+  const handleSubmit = async (review) => {
+    await reviewUserGround(review);
+    window.location.reload();
   };
-  const data = fetchReviewList();
-  useEffect(() => {
-    async function fetchData() {
-      console.log('reviews', data);
-      setReviews(data);
-    }
-    fetchData();
-  }, [fetchReviewList]);
-  const reviewable = fetchIsReviewableUser();
-  console.log(reviews);
+
   return (
     <Container>
-      <ReviewList reviews={reviews} />
       {reviewable && <ReviewForm onSubmit={handleSubmit} />}
+      <ReviewList reviews={reviewList} />
     </Container>
   );
 }

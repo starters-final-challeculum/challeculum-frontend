@@ -31,7 +31,7 @@ function MainPage() {
       ) : null}
       <CategoryTabBar
         tabs={categoryMap}
-        activeCategory={context.categoryId}
+        activeCategory={context.categoryName}
         onTabClick={handleTabClick}
       />
       <GroundList />

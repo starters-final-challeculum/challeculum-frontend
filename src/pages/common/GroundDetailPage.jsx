@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import tw from 'tailwind-styled-components/';
 import { withLayout } from '../../components/common/layout/Layout';
 import useFetchData from '../../hooks/useFetchData';
 import GroundDetailCard from '../../components/common/groundDetailPage/GroundDetailCard';
@@ -12,7 +13,7 @@ import api from '../../common/axios-config';
 function GroundDetailPage() {
   const params = useParams();
   const ground = useFetchData(`/ground/${params.groundId}`);// 성공
-  const fetchMissionList = () => useFetchData(`/mission/${params.groundId}`); // cheked
+  const fetchMissionList = () => useFetchData(`/mission/${params.groundId}`); // checked
   const fetchUserList = () => useFetchData(`/ground/${params.groundId}/user`);
   const fetchIsAvailableGround = () => useFetchData(`/user/me/ground/${params.groundId}/available`); // new url
   const fetchReward = () => useFetchData(`/ground/${params.groundId}/reward`); // new url
@@ -22,7 +23,7 @@ function GroundDetailPage() {
   const createUserGround = () => api.post(`/user/me/ground/${params.groundId}`); // new url
   const cancelUserGround = () => api.delete(`user/me/ground/${params.groundId}`); // new url
   const createUserMission = (missionId) => api.post(`/user/me/mission/${missionId}`); // new url
-  const reviewUserGround = (reviewForm) => api.patch(`user/me/ground/${params.groundId}/review`, reviewForm); // new url
+  const reviewUserGround = (reviewForm) => api.post(`user/me/ground/${params.groundId}/review`, reviewForm); // new url
   const createUserLecture = (lectureId) => api.post(`user/me/lecture/${lectureId}`);
 
   const componentMap = new Map([
@@ -56,20 +57,27 @@ function GroundDetailPage() {
     <>
       { ground.status === 'GROUND_STANDBY' && (
       <>
+        <Title>그라운드 상세 정보</Title>
         {componentMap.get('GroundDetailCard')}
+        <Title>그라운드 7일간의 미션</Title>
         {componentMap.get('GroundMissionList')}
       </>
       )}
       { ground.status === 'GROUND_ONGOING' && (
       <>
+        <Title>그라운드 7일간의 미션</Title>
         {componentMap.get('GroundMissionList')}
+        <Title>참여자 진행 현황</Title>
         {componentMap.get('RemainUserGrid')}
+        <Title>그라운드 상세 정보</Title>
         {componentMap.get('GroundDetailCard')}
       </>
       )}
       { ground.status === 'GROUND_COMPLETED' && (
       <>
+        <Title>명예의 전당</Title>
         {componentMap.get('SuccessUserList')}
+        <Title>그라운드 리뷰</Title>
         {componentMap.get('ReviewContainer')}
       </>
       )}
@@ -77,3 +85,5 @@ function GroundDetailPage() {
   );
 }
 export default withLayout(GroundDetailPage);
+
+const Title = tw.h1`text-3xl my-8`;
