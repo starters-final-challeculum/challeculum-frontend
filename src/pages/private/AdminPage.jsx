@@ -13,7 +13,6 @@ function AdminPage() {
   const getInfo = () => {
     api.get('/user').then((response) => {
       setInfo(response.data);
-      console.log(response.data);
     });
   };
 
@@ -21,7 +20,6 @@ function AdminPage() {
     try {
       const response = await api.get('user/me/all');
       setMission(response.data);
-      console.log(response.data);
       const count = response.data.filter((m) => m.isAccepted === 'WAITING').length;
       setWaitingMissionCount(count);
     } catch (error) {

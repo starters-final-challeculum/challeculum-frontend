@@ -6,7 +6,8 @@ function MissionTab() {
   const [mission, setMission] = useState([]);
 
   const getMission = async () => {
-    api.get('user/me/all').then((response) => {
+    api.get('user/me/mission').then((response) => {
+      console.log(response.data);
       setMission(response.data);
     });
   };
@@ -47,17 +48,22 @@ function MissionTab() {
             && mission.map((item) => (
               <ListCard key={item.missionId} className="grid grid-cols-8">
                 <FirstBox className="col-span-3">
-                  <div className="text-lg font-semibold">
+                  <div className="text-2xl font-semibold">
                     {item.isAccepted}
                   </div>
-
                   <Info>
-                    제출일 :
+                    {item.ground.groundTitle}
+                  </Info>
+                  <Info>
+                    마감 :
                     {item.submitAt}
                   </Info>
                   <Info>
-                    유저 ID :
-                    {item.userId}
+                    제출 :
+                    {item.submitAt}
+                  </Info>
+                  <Info>
+                    {item.nickname}
                   </Info>
                 </FirstBox>
                 <SecondBox className="col-span-3">
