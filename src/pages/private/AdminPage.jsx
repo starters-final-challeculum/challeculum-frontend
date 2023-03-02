@@ -6,21 +6,25 @@ import AdminTabBar from '../../components/private/adminPage/AdminTabBar';
 
 function AdminPage() {
   const [info, setInfo] = useState({});
-  const [mission, setMission] = useState('');
+  const [mission, setMission] = useState([]);
+  const [waitingMissionCount, setWaitingMissionCount] = useState(0);
   const navigate = useNavigate();
 
   const getInfo = () => {
     api.get('/user').then((response) => {
       setInfo(response.data);
-      console.log(response.data);
     });
   };
 
   const getMission = async () => {
-    api.get('user/me/all').then((response) => {
+    try {
+      const response = await api.get('user/me/all');
       setMission(response.data);
-      console.log(response.data);
-    });
+      const count = response.data.filter((m) => m.isAccepted === 'WAITING').length;
+      setWaitingMissionCount(count);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -28,12 +32,14 @@ function AdminPage() {
     getMission();
   }, []);
 
+  useEffect(() => {
+    console.log(waitingMissionCount);
+  }, [waitingMissionCount]);
+
   if (info.role !== 'ROLE_ADMIN') {
     navigate('/');
     return null;
   }
-
-  const waitingMissionCount = mission.filter((m) => m.isAccepted === 'WAITING').length;
 
   return (
     <>

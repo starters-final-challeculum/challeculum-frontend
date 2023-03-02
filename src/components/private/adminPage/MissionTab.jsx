@@ -6,7 +6,8 @@ function MissionTab() {
   const [mission, setMission] = useState([]);
 
   const getMission = async () => {
-    api.get('user/me/all').then((response) => {
+    api.get('user/me/mission').then((response) => {
+      console.log(response.data);
       setMission(response.data);
     });
   };
@@ -16,15 +17,10 @@ function MissionTab() {
   }, []);
 
   const onUpdateHandler = async (event) => {
-    const missionId = event.target.id;
-    const missionToUpdate = mission.find((item) => item.missionId === missionId);
-    console.log(missionToUpdate);
+    const { userId, missionId } = JSON.parse(event.target.value);
 
-    api.put(`/user/me/mission/${missionId}`, {
-      submitAt: missionToUpdate.submitAt,
+    api.put(`/user/${userId}/mission/${missionId}`, {
       isAccepted: 'ACCEPTED',
-      imageUrl: missionToUpdate.imageUrl,
-      userId: missionToUpdate.userId,
     })
       .then((response) => {
         console.log(response);
@@ -34,15 +30,10 @@ function MissionTab() {
   };
 
   const onRejectHandler = async (event) => {
-    const missionId = event.target.id;
-    const missionToUpdate = mission.find((item) => item.missionId === missionId);
-    console.log(missionToUpdate);
+    const { userId, missionId } = JSON.parse(event.target.value);
 
-    api.put(`/user/me/mission/${missionId}`, {
-      submitAt: missionToUpdate.submitAt,
+    api.put(`/user/${userId}/mission/${missionId}`, {
       isAccepted: 'REJECTED',
-      imageUrl: missionToUpdate.imageUrl,
-      userId: missionToUpdate.userId,
     })
       .then((response) => {
         console.log(response);
@@ -55,41 +46,42 @@ function MissionTab() {
     <ListContainer>
       {mission
             && mission.map((item) => (
-              <ListCard key={item.missionId} className="grid grid-cols-6">
-                <FirstBox>
-                  <div className="text-lg font-semibold">
-                    상태 :
+              <ListCard key={item.missionId} className="grid grid-cols-8">
+                <FirstBox className="col-span-3">
+                  <div className="text-2xl font-semibold">
                     {item.isAccepted}
                   </div>
-
                   <Info>
-                    제출일 :
+                    {item.ground.groundTitle}
+                  </Info>
+                  <Info>
+                    마감 :
                     {item.submitAt}
                   </Info>
                   <Info>
-                    유저 ID :
-                    {item.userId}
+                    제출 :
+                    {item.submitAt}
+                  </Info>
+                  <Info>
+                    {item.nickname}
                   </Info>
                 </FirstBox>
-                <ThirdBox className="col-end-7">
+                <SecondBox className="col-span-3">
+                  <img src={item.imageUrl} alt="이미지를 찾을 수 없습니다." />
+                </SecondBox>
+                <ThirdBox className="col-span-2">
                   {item.isAccepted === 'WAITING' && (
-                  <Button id={item.missionId} onClick={onUpdateHandler}>
+                  <Button value={JSON.stringify(item)} userId={item.userId} onClick={onUpdateHandler}>
                     미션 승인
                   </Button>
                   )}
                   {item.isAccepted === 'ACCEPTED' && (
-                  <Button id={item.missionId} onClick={onRejectHandler}>
+                  <Button value={JSON.stringify(item)} onClick={onRejectHandler} className="bg-red-600">
                     미션 승인 취소
                   </Button>
                   )}
                 </ThirdBox>
-                <SecondBox className="col-span-5">
-                  <Info>
-                    url :
-                    {' '}
-                    {item.imageUrl}
-                  </Info>
-                </SecondBox>
+
               </ListCard>
             ))}
     </ListContainer>
