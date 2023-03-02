@@ -13,8 +13,8 @@ export function CategoryTabBar({ tabs, activeCategory, onTabClick }) {
         <button
           key={key}
           value={value.id}
-          className={`flex-grow py-2 px-4 border-b-2 border-transparent text-gray-500 hover:text-gray-800 hover:border-gray-500 focus:outline-none ${
-            isActivated(key) ? 'border-gray-900 text-black-900 text-xl font-medium' : ''
+          className={`flex-grow py-2 px-4 border-transparent text-gray-500 hover:text-black focus:outline-none rounded-3xl m-2${
+            isActivated(value.id) ? 'border-gray-900 text-black text-2xl font-medium bg-gray-200 rounded-3xl' : ''
           }`}
           onClick={() => handleClick(value.id)}
         >

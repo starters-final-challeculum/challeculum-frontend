@@ -29,9 +29,15 @@ export function GroundElement({
   } else if (status === 'GROUND_STANDBY') {
     statusMessage = '모집 중';
   }
+
+  const statusClassName = status === 'GROUND_COMPLETED'
+    ? 'bg-neutral-300'
+    : status === 'GROUND_ONGOING'
+      ? 'bg-rose-300'
+      : 'bg-indigo-200';
   return (
     <ListCard key={id} className="grid grid-cols-10" onClick={navigateGroundDetail}>
-      <ImageBox>
+      <ImageBox className="items-center">
         <img src={platformImage} alt={platform} />
       </ImageBox>
       <FirstBox>
@@ -59,8 +65,10 @@ export function GroundElement({
           {numOfParticipants}
         </Info>
       </SecondBox>
-      <ThirdBox className="text-xl text-gray-800">
-        {statusMessage}
+      <ThirdBox>
+        <div className={`text-center w-24 p-3 rounded-2xl ${statusClassName}`}>
+          {statusMessage}
+        </div>
       </ThirdBox>
     </ListCard>
   );
@@ -73,7 +81,7 @@ const Info = tw.div`
 text-gray-700
 `;
 const ImageBox = tw.div`
-col-span-2 m-2
+col-span-2 m-2 h-24
 `;
 const FirstBox = tw.div`
 col-span-4 m-2
@@ -82,5 +90,5 @@ const SecondBox = tw.div`
 col-span-2 m-2
 `;
 const ThirdBox = tw.div`
-col-span-2 m-2 flex justify-center items-center
+col-span-2 m-2 flex justify-center items-center text-xl text-gray-800
 `;

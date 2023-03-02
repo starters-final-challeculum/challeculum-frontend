@@ -16,7 +16,7 @@ const Subtitle = tw.h2`
   text-lg font-medium text-gray-500 mb-4
 `;
 
-const Paragraph = tw.p`
+const Content = tw.p`
   text-gray-700 text-base mb-6 h-40 overflow-auto
 `;
 
@@ -27,6 +27,7 @@ const IconText = tw.div`
 const Info = tw.div`
   bg-emerald-700 text-white rounded-lg p-4
 `;
+const Paragraph = tw.div`overflow-y-auto h-40`;
 
 function GroundDetailCard({
   ground, fetchIsAvailableGround, createUserGround, cancelUserGround, createUserLecture,
@@ -57,9 +58,18 @@ function GroundDetailCard({
   };
   return (
     <Card>
-      <Title>{ground.title}</Title>
-      <Subtitle>{ground.lectureId}</Subtitle>
-      <Paragraph>{ground.information}</Paragraph>
+      <Title>{ground.groundTitle}</Title>
+      <Subtitle>
+        강의명 :
+        {ground.lectureTitle}
+      </Subtitle>
+      <Subtitle>
+        강사 :
+        {ground.instructor}
+      </Subtitle>
+      <Paragraph>
+        <Content>{ground.information}</Content>
+      </Paragraph>
       <div className="flex items-center justify-between text-gray-700 text-sm mb-2">
         <IconText>
           <FontAwesomeIcon icon={faWallet} className="mr-2" />
@@ -97,7 +107,7 @@ function GroundDetailCard({
         </IconText>
         <IconText>
           <button
-            className="bg-gray-200 p-1 rounded-2xl"
+            className="bg-gray-200 p-2 rounded-2xl hover:bg-gray-300"
             onClick={ClickHandle}
           >
             {available ? '참여하기' : '참여취소'}

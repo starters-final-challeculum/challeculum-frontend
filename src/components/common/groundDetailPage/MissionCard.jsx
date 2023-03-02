@@ -17,7 +17,7 @@ const Text = tw.p`
 `;
 
 const Button = tw.button`
-  bg-white text-emerald-500 font-medium py-1 px-4 rounded-md
+  bg-white text-emerald-700 font-medium py-1  px-4 rounded-md hover:bg-emerald-100
 `;
 
 const UploadArea = tw.div`
@@ -41,8 +41,11 @@ function GroundAssignment({ mission, ground, createUserMission }) {
   const fileInputRef = useRef();
   const submittedUserMission = api.get(`/user/me/mission/${mission.missionId}`); // new url
   const checkIsTodayMission = () => {
-    const today = new Date();
-    if (today === mission.missionAt) return true;
+    const today = new Date().toLocaleDateString('ko-KR');
+    const missionDate = new Date(Date.parse(mission.missionAt)).toLocaleDateString('ko-KR');
+    console.log(today);
+    console.log(missionDate);
+    if (today === missionDate) return true;
     return false;
   };
 
@@ -81,11 +84,11 @@ function GroundAssignment({ mission, ground, createUserMission }) {
         <Title>
           {mission.missionAt}
         </Title>
-        <Text>
-          {mission.assignment}
-        </Text>
+        <div className="h-20 overflow-y-auto">
+          <Text>{mission.assignment}</Text>
+        </div>
       </div>
-      { (ground.status === 'GROUND_ONGOING' && checkIsTodayMission(mission.startAt, mission.endAt)) && (
+      { (ground.status === 'GROUND_ONGOING' && checkIsTodayMission()) && (
       <>
         <UploadArea>
           <button onClick={() => fileInputRef.current.click()}>
@@ -101,13 +104,13 @@ function GroundAssignment({ mission, ground, createUserMission }) {
               : (
                 <>
                   <UploadIcon icon={faUpload} />
-                  <span>Upload file</span>
+                  <span>인증사진 업로드</span>
                 </>
               )}
           </button>
           <FileInput type="file" name="file" ref={fileInputRef} onChange={handleFileChange} />
         </UploadArea>
-        <Button value={mission.missionId} onClick={handleSubmit}>Submit</Button>
+        <Button value={mission.missionId} onClick={handleSubmit}>미션 제출하기</Button>
       </>
       )}
     </Card>
