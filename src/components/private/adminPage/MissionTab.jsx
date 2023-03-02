@@ -16,9 +16,9 @@ function MissionTab() {
   }, []);
 
   const onUpdateHandler = async (event) => {
-    const missionId = event.target.id;
+    const { userId, missionId } = JSON.parse(event.target.value);
 
-    api.put(`/user/me/mission/${missionId}`, {
+    api.put(`/user/${userId}/mission/${missionId}`, {
       isAccepted: 'ACCEPTED',
     })
       .then((response) => {
@@ -29,9 +29,9 @@ function MissionTab() {
   };
 
   const onRejectHandler = async (event) => {
-    const missionId = event.target.id;
+    const { userId, missionId } = JSON.parse(event.target.value);
 
-    api.put(`/user/me/mission/${missionId}`, {
+    api.put(`/user/${userId}/mission/${missionId}`, {
       isAccepted: 'REJECTED',
     })
       .then((response) => {
@@ -45,8 +45,8 @@ function MissionTab() {
     <ListContainer>
       {mission
             && mission.map((item) => (
-              <ListCard key={item.missionId} className="grid grid-cols-6">
-                <FirstBox>
+              <ListCard key={item.missionId} className="grid grid-cols-8">
+                <FirstBox className="col-span-3">
                   <div className="text-lg font-semibold">
                     {item.isAccepted}
                   </div>
@@ -60,25 +60,22 @@ function MissionTab() {
                     {item.userId}
                   </Info>
                 </FirstBox>
-                <ThirdBox className="col-end-7">
+                <SecondBox className="col-span-3">
+                  <img src={item.imageUrl} alt="이미지를 찾을 수 없습니다." />
+                </SecondBox>
+                <ThirdBox className="col-span-2">
                   {item.isAccepted === 'WAITING' && (
-                  <Button id={item.missionId} onClick={onUpdateHandler}>
+                  <Button value={JSON.stringify(item)} userId={item.userId} onClick={onUpdateHandler}>
                     미션 승인
                   </Button>
                   )}
                   {item.isAccepted === 'ACCEPTED' && (
-                  <Button id={item.missionId} onClick={onRejectHandler} className="bg-red-600">
+                  <Button value={JSON.stringify(item)} onClick={onRejectHandler} className="bg-red-600">
                     미션 승인 취소
                   </Button>
                   )}
                 </ThirdBox>
-                <SecondBox className="col-span-5">
-                  <Info>
-                    url :
-                    {' '}
-                    {item.imageUrl}
-                  </Info>
-                </SecondBox>
+
               </ListCard>
             ))}
     </ListContainer>
