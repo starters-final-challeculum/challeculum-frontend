@@ -17,14 +17,9 @@ function MissionTab() {
 
   const onUpdateHandler = async (event) => {
     const missionId = event.target.id;
-    const missionToUpdate = mission.find((item) => item.missionId === missionId);
-    console.log(missionToUpdate);
 
     api.put(`/user/me/mission/${missionId}`, {
-      submitAt: missionToUpdate.submitAt,
       isAccepted: 'ACCEPTED',
-      imageUrl: missionToUpdate.imageUrl,
-      userId: missionToUpdate.userId,
     })
       .then((response) => {
         console.log(response);
@@ -35,14 +30,9 @@ function MissionTab() {
 
   const onRejectHandler = async (event) => {
     const missionId = event.target.id;
-    const missionToUpdate = mission.find((item) => item.missionId === missionId);
-    console.log(missionToUpdate);
 
     api.put(`/user/me/mission/${missionId}`, {
-      submitAt: missionToUpdate.submitAt,
       isAccepted: 'REJECTED',
-      imageUrl: missionToUpdate.imageUrl,
-      userId: missionToUpdate.userId,
     })
       .then((response) => {
         console.log(response);
@@ -58,7 +48,6 @@ function MissionTab() {
               <ListCard key={item.missionId} className="grid grid-cols-6">
                 <FirstBox>
                   <div className="text-lg font-semibold">
-                    상태 :
                     {item.isAccepted}
                   </div>
 
@@ -78,7 +67,7 @@ function MissionTab() {
                   </Button>
                   )}
                   {item.isAccepted === 'ACCEPTED' && (
-                  <Button id={item.missionId} onClick={onRejectHandler}>
+                  <Button id={item.missionId} onClick={onRejectHandler} className="bg-red-600">
                     미션 승인 취소
                   </Button>
                   )}
