@@ -1,4 +1,4 @@
-export const apiBaseUrl = 'http://localhost:8090/api/v1';
+export const apiBaseUrl = 'http://15.152.200.75/api/v1';
 export const categoryMap = new Map([
   ['', { id: '', name: '전체' }],
   ['1', { id: 'CATEGORY_IT', name: 'IT' }],
