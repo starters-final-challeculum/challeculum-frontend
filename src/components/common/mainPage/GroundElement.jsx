@@ -4,7 +4,7 @@ import tw from 'tailwind-styled-components';
 
 import coursera from '../../../static/images/coursera.png';
 import udemy from '../../../static/images/udemy.png';
-import inflearn from '../../../static/images/inflearn.png';
+import inflearn from '../../../static/images/Inflearn.png';
 
 const platformImages = {
   PLATFORM_COURSERA: coursera,
@@ -37,7 +37,7 @@ export function GroundElement({
       : 'bg-indigo-200';
   return (
     <ListCard key={id} className="grid grid-cols-10" onClick={navigateGroundDetail}>
-      <ImageBox className="items-center">
+      <ImageBox>
         <img src={platformImage} alt={platform} />
       </ImageBox>
       <FirstBox>
@@ -81,7 +81,7 @@ const Info = tw.div`
 text-gray-700
 `;
 const ImageBox = tw.div`
-col-span-2 m-2 h-24
+col-span-2 m-2 h-24 flex justify-center items-center mr-8
 `;
 const FirstBox = tw.div`
 col-span-4 m-2

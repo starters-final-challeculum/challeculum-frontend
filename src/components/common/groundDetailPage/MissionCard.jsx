@@ -1,8 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import tw from 'tailwind-styled-components';
 import api from '../../../common/axios-config';
+import { groundStatus } from '../../../common/global-constants';
 
 const Card = tw.div`
   bg-neutral-500 rounded-lg p-4 h-96 w-72 text-white flex flex-col justify-between
@@ -36,15 +37,22 @@ const PreviewImage = tw.img`
   w-full h-30 object-contain my-2
 `;
 
-function GroundAssignment({ mission, ground, createUserMission }) {
+function GroundAssignment({ mission, status }) {
   const [file, setFile] = useState(null);
+  const [submitted, setSubmitted] = useState(null);
   const fileInputRef = useRef();
-  const submittedUserMission = api.get(`/user/me/mission/${mission.missionId}`); // new url
+  const fetchUserMission = () => {
+    api.get(`/user/me/mission/${mission.missionId}`).then((response) => {
+      setSubmitted(response.data);
+      console.log(response.data);
+    });
+  };
+  useEffect(() => {
+    fetchUserMission();
+  }, []);
   const checkIsTodayMission = () => {
     const today = new Date().toLocaleDateString('ko-KR');
     const missionDate = new Date(Date.parse(mission.missionAt)).toLocaleDateString('ko-KR');
-    console.log(today);
-    console.log(missionDate);
     if (today === missionDate) return true;
     return false;
   };
@@ -88,31 +96,42 @@ function GroundAssignment({ mission, ground, createUserMission }) {
           <Text>{mission.assignment}</Text>
         </div>
       </div>
-      { (ground.status === 'GROUND_ONGOING' && checkIsTodayMission()) && (
-      <>
-        <UploadArea>
-          <button onClick={() => fileInputRef.current.click()}>
-            {file ? (
-              <>
-                <PreviewImage
-                  src={URL.createObjectURL(file)}
-                  alt="Selected file"
-                />
-                <Text>{file.name}</Text>
-              </>
-            )
-              : (
-                <>
-                  <UploadIcon icon={faUpload} />
-                  <span>인증사진 업로드</span>
-                </>
-              )}
-          </button>
-          <FileInput type="file" name="file" ref={fileInputRef} onChange={handleFileChange} />
-        </UploadArea>
-        <Button value={mission.missionId} onClick={handleSubmit}>미션 제출하기</Button>
-      </>
-      )}
+      {submitted !== null
+        ? (
+          <>
+            <PreviewImage
+              src={submitted.imageUrl}
+              alt="Selected file"
+            />
+            <Text>{`${submitted.submitAt} 제출 미션`}</Text>
+          </>
+        )
+        : (status === groundStatus.ongoing && checkIsTodayMission()) && (
+          <>
+            <UploadArea>
+              <button onClick={() => fileInputRef.current.click()}>
+                {file ? (
+                  <>
+                    <PreviewImage
+                      src={URL.createObjectURL(file)}
+                      alt="Selected file"
+                    />
+                    <Text>{file.name}</Text>
+                  </>
+                )
+                  : (
+                    <>
+                      <UploadIcon icon={faUpload} />
+                      <span>인증사진 업로드</span>
+                    </>
+                  )}
+              </button>
+              <FileInput type="file" name="file" ref={fileInputRef} onChange={handleFileChange} />
+            </UploadArea>
+            <Button value={mission.missionId} onClick={handleSubmit}>미션 제출하기</Button>
+          </>
+        )}
+
     </Card>
   );
 }

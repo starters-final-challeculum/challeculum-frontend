@@ -24,7 +24,7 @@ function MyLectureList() {
 
   return (
     <ListContainer>
-      {lecture && lecture.map((item) => (
+      {lecture.length !== 0 ? lecture.map((item) => (
         <ListCard key={item.id}>
           <FirstBox>
             <Info>
@@ -47,13 +47,13 @@ function MyLectureList() {
             <Button onClick={onCreateGroundHandler}>그라운드 생성하기</Button>
           </ThirdBox>
         </ListCard>
-      ))}
+      )) : (<h1 className="text-3xl py-4">데이터가 없습니다 😂</h1>)}
     </ListContainer>
 
   );
 }
 const ListContainer = tw.div`
-  bg-gray-200 p-4 rounded-lg
+  bg-gray-200 p-4 rounded-lg mx-8
     `;
 const ListCard = tw.div`
   bg-white p-4 my-4 rounded-lg shadow-md

@@ -17,7 +17,7 @@ export function RemainUserGrid({ fetchUserList, fetchReward }) {
         예상 획득 포인트 :
         {reward}
         {' '}
-        Point
+        P
       </div>
       <Grid>
         {users.map(({ username, isSuccess }, index) => (

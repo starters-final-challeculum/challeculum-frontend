@@ -14,7 +14,7 @@ function Home() {
 
   return (
     <div className="container mx-auto px-4 py-8 grid grid-cols-5">
-      <div className="col-span-2">
+      <div className="col-span-2 mt-28">
         <h2 className="text-4xl font-bold mb-4">혼자 공부하기 힘드신가요?</h2>
         <h2 className="text-4xl font-bold mb-4">
           그라운드에 참여하고,

@@ -57,7 +57,7 @@ function AddMyLecture() {
   );
 }
 const ListContainer = tw.div`
-  bg-gray-200 p-4 rounded-lg
+  bg-gray-200 p-4 rounded-lg mx-8
     `;
 const ListCard = tw.div`
   bg-white p-4 my-4 rounded-lg shadow-md

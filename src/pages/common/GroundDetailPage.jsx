@@ -9,6 +9,7 @@ import { RemainUserGrid } from '../../components/common/groundDetailPage/RemainU
 import { SuccessUserList } from '../../components/common/groundDetailPage/SuccessUserList';
 import { ReviewContainer } from '../../components/common/groundDetailPage/ReviewContainer';
 import api from '../../common/axios-config';
+import { groundStatus } from '../../common/global-constants';
 
 function GroundDetailPage() {
   const params = useParams();
@@ -22,7 +23,6 @@ function GroundDetailPage() {
   const fetchReviewList = () => useFetchData(`/ground/${params.groundId}/review`); // new url
   const createUserGround = () => api.post(`/user/me/ground/${params.groundId}`); // new url
   const cancelUserGround = () => api.delete(`user/me/ground/${params.groundId}`); // new url
-  const createUserMission = (missionId) => api.post(`/user/me/mission/${missionId}`); // new url
   const reviewUserGround = (reviewForm) => api.post(`user/me/ground/${params.groundId}/review`, reviewForm); // new url
   const createUserLecture = (lectureId) => api.post(`user/me/lecture/${lectureId}`);
 
@@ -35,9 +35,8 @@ function GroundDetailPage() {
       createUserLecture={createUserLecture}
     />],
     ['GroundMissionList', <GroundMissionList
-      ground={ground}
+      status={ground.status}
       fetchMissionList={fetchMissionList}
-      createUserMission={createUserMission}
     />],
     ['RemainUserGrid', <RemainUserGrid
       fetchUserList={fetchUserList}
@@ -55,7 +54,7 @@ function GroundDetailPage() {
 
   return (
     <>
-      { ground.status === 'GROUND_STANDBY' && (
+      { ground.status === groundStatus.standby && (
       <>
         <Title>그라운드 상세 정보</Title>
         {componentMap.get('GroundDetailCard')}
@@ -63,7 +62,7 @@ function GroundDetailPage() {
         {componentMap.get('GroundMissionList')}
       </>
       )}
-      { ground.status === 'GROUND_ONGOING' && (
+      { ground.status === groundStatus.ongoing && (
       <>
         <Title>그라운드 7일간의 미션</Title>
         {componentMap.get('GroundMissionList')}
@@ -73,7 +72,7 @@ function GroundDetailPage() {
         {componentMap.get('GroundDetailCard')}
       </>
       )}
-      { ground.status === 'GROUND_COMPLETED' && (
+      { ground.status === groundStatus.completed && (
       <>
         <Title>명예의 전당</Title>
         {componentMap.get('SuccessUserList')}

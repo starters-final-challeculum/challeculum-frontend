@@ -3,6 +3,7 @@ import { faCalendarAlt, faUsers, faWallet } from '@fortawesome/free-solid-svg-ic
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import tw from 'tailwind-styled-components';
 import { useNavigate } from 'react-router-dom';
+import { groundStatus } from '../../../common/global-constants';
 
 const Card = tw.div`
   bg-white shadow-lg rounded-lg px-6 py-8 mb-12
@@ -42,11 +43,13 @@ function GroundDetailCard({
           window.location.reload();
         })
         .catch(({ response }) => {
-          const confirm = window.confirm(response.data.detail);
-          if (confirm) {
-            createUserLecture(ground.lectureId);
-            alert('내가 수강하는 강의 등록 완료 되었습니다.');
-            window.location.reload();
+          if (response.data.errorCode === 2005) {
+            const confirm = window.confirm(response.data.detail);
+            if (confirm) {
+              createUserLecture(ground.lectureId);
+              alert('내가 수강하는 강의 등록 완료 되었습니다.');
+              window.location.reload();
+            }
           }
         });
     } else {
@@ -106,12 +109,14 @@ function GroundDetailCard({
           </span>
         </IconText>
         <IconText>
+          {ground.status === groundStatus.standby && (
           <button
             className="bg-gray-200 p-2 rounded-2xl hover:bg-gray-300"
             onClick={ClickHandle}
           >
             {available ? '참여하기' : '참여취소'}
           </button>
+          )}
         </IconText>
       </div>
       {/* <Info> */}

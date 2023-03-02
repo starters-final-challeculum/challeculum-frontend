@@ -32,52 +32,53 @@ function GroundListByMe() {
   };
 
   return (
-    <ListContainer>
-      <div className="flex justify-end">
-        <Button onClick={onCreateHandler}>그라운드 생성</Button>
+    <>
+      <div className="flex justify-end mb-4 mr-8">
+        <Button className="mr-16 bg-gray-500" onClick={onCreateHandler}>그라운드 생성</Button>
       </div>
-      {ground && ground.map((item) => (
-        <ListCard key={item.groundId}>
-          <FirstBox>
-            <Info>
-              {item.platform}
-            </Info>
-            <div className="text-lg font-semibold">{item.groundTitle}</div>
-            <Info>
-              {item.startAt}
-              {' '}
-              ~
-              {item.endAt}
-            </Info>
-          </FirstBox>
-          <SecondBox>
-            <Info>
-              참여인원 :
-              {' '}
-              {item.numOfParticipants}
-            </Info>
-            <Info>
-              예치금 :
-              {' '}
-              {item.deposit}
-            </Info>
-            <Info>
-              현재 상태:
-              {' '}
-              {item.status}
-            </Info>
-          </SecondBox>
-          <ThirdBox>
-            <Button id={item.groundId} onClick={onDeleteHandler}>그라운드 삭제</Button>
-          </ThirdBox>
-        </ListCard>
-      ))}
-    </ListContainer>
-
+      <ListContainer>
+        {ground.length !== 0 ? ground.map((item) => (
+          <ListCard key={item.groundId}>
+            <FirstBox>
+              <Info>
+                {item.platform}
+              </Info>
+              <div className="text-lg font-semibold">{item.groundTitle}</div>
+              <Info>
+                {item.startAt}
+                {' '}
+                ~
+                {item.endAt}
+              </Info>
+            </FirstBox>
+            <SecondBox>
+              <Info>
+                참여인원 :
+                {' '}
+                {item.numOfParticipants}
+              </Info>
+              <Info>
+                예치금 :
+                {' '}
+                {item.deposit}
+              </Info>
+              <Info>
+                현재 상태:
+                {' '}
+                {item.status}
+              </Info>
+            </SecondBox>
+            <ThirdBox>
+              <Button id={item.groundId} onClick={onDeleteHandler}>그라운드 삭제</Button>
+            </ThirdBox>
+          </ListCard>
+        )) : (<h1 className="text-3xl py-4">데이터가 없습니다 😂</h1>)}
+      </ListContainer>
+    </>
   );
 }
 const ListContainer = tw.div`
-  bg-gray-200 p-4 rounded-lg
+  bg-gray-200 p-4 rounded-lg mx-8
     `;
 const ListCard = tw.div`
   bg-white p-4 my-4 rounded-lg shadow-md 
