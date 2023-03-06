@@ -46,6 +46,7 @@ export function MissionAdder({ getValues }) {
     defaultValues: {
       forms: [{ assignment: '', missionAt: '' }],
     },
+
   });
   const navigate = useNavigate();
   const { fields, append, remove } = useFieldArray({

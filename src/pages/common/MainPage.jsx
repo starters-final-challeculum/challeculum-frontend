@@ -5,34 +5,33 @@ import { withLayout } from '../../components/common/layout/Layout';
 import { CategoryTabBar } from '../../components/common/mainPage/CategoryTabBar';
 import { useGlobalContext } from '../../hooks/useGlobalContext';
 import { categoryMap } from '../../common/global-constants';
+import useFetchData from '../../hooks/useFetchData';
 
 function MainPage() {
-  const isAuthenticated = !!localStorage.getItem('Authorization');
   const context = useGlobalContext();
+  const isAuthenticated = !!localStorage.getItem('Authorization');
+  const groundList = isAuthenticated ? useFetchData('/ground/me') : undefined;
 
-  const handleTabClick = (categoryId) => {
+  const handleTabClick = (categoryName) => {
     const filterMap = new Map([
       ['status', context.status],
       ['platform', context.platform],
-      ['category_id', categoryId],
+      ['category_name', categoryName || ''],
     ]);
-
     context.setFilter(context.generateFilterString(filterMap));
-    context.setCategoryId(categoryId);
+    context.setCategoryName(categoryName);
   };
 
   return (
     <div>
-      { isAuthenticated
-        && (
+      { groundList === [] ? (
         <div className="mb-8">
-          <h3 className="text-2xl my-8"> 참여중인 그라운드 </h3>
-          <MyGroundCardList />
+          <MyGroundCardList groundList={groundList} />
         </div>
-        )}
+      ) : null}
       <CategoryTabBar
         tabs={categoryMap}
-        activeCategory={context.categoryId}
+        activeCategory={context.categoryName}
         onTabClick={handleTabClick}
       />
       <GroundList />

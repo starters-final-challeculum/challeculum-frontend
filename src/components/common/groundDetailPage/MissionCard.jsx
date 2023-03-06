@@ -1,15 +1,16 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from 'axios';
 import tw from 'tailwind-styled-components';
+import api from '../../../common/axios-config';
+import { groundStatus } from '../../../common/global-constants';
 
 const Card = tw.div`
-  bg-emerald-500 rounded-lg p-4 h-80 w-60 text-white flex flex-col justify-between
+  bg-neutral-500 rounded-lg p-4 h-96 w-72 text-white flex flex-col justify-between
 `;
 
 const Title = tw.h2`
-  text-lg font-medium mb-1
+  text-2xl font-medium mb-2
 `;
 
 const Text = tw.p`
@@ -17,11 +18,11 @@ const Text = tw.p`
 `;
 
 const Button = tw.button`
-  bg-white text-emerald-500 font-medium py-1 px-4 rounded-md
+  bg-white text-emerald-700 font-medium py-1  px-4 rounded-md hover:bg-emerald-100
 `;
 
 const UploadArea = tw.div`
-  flex items-center justify-center
+  flex items-center justify-center overflow-y-auto
 `;
 
 const UploadIcon = tw(FontAwesomeIcon)`
@@ -32,86 +33,105 @@ const FileInput = tw.input`
   hidden
 `;
 
-function GroundAssignment({ mission, ground, createUserMission }) {
+const PreviewImage = tw.img`
+  w-full h-30 object-contain my-2
+`;
+
+function GroundAssignment({ mission, status }) {
   const [file, setFile] = useState(null);
+  const [submitted, setSubmitted] = useState(null);
   const fileInputRef = useRef();
-
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+  const fetchUserMission = () => {
+    api.get(`/user/me/mission/${mission.missionId}`).then((response) => {
+      setSubmitted(response.data);
+      console.log(response.data);
+    });
   };
-
-  const handleButtonClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const checkIsTodayMission = (start, end) => {
-    const today = new Date();
-    if (today >= new Date(start) && today <= new Date(end)) {
-      return true;
-    }
+  useEffect(() => {
+    fetchUserMission();
+  }, []);
+  const checkIsTodayMission = () => {
+    const today = new Date().toLocaleDateString('ko-KR');
+    const missionDate = new Date(Date.parse(mission.missionAt)).toLocaleDateString('ko-KR');
+    if (today === missionDate) return true;
     return false;
   };
 
-  const handleSubmit = async () => {
-    if (!file) {
-      return;
-    }
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
 
-    // 파일 업로드 처리
+    if (selectedFile && selectedFile.type.startsWith('image/')) {
+      setFile(selectedFile);
+    } else {
+      setFile(null);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!file) return;
+
     const formData = new FormData();
     formData.append('file', file);
 
-    const { data: fileUrl } = await axios.post(
-      'https://example.com/upload',
-      formData,
-      {
+    try {
+      const { data } = await api.post(`/user/me/mission/${e.target.value}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-      },
-    );
-
-    // 제출 처리
-    const { data: submission } = await axios.post(
-      'https://example.com/submissions',
-      { assignmentId: mission.id, fileUrl },
-    );
-
-    console.log(submission);
+      });
+      alert('성공적으로 제출 되었습니다.');
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (
     <Card>
       <div>
         <Title>
-          Assignment
+          {mission.missionAt}
         </Title>
-        <Text>
-          {mission.startAt}
-          {' '}
-          -
-          {mission.endAt}
-        </Text>
-        <Text>
-          {mission.assignment}
-        </Text>
+        <div className="h-20 overflow-y-auto">
+          <Text>{mission.assignment}</Text>
+        </div>
       </div>
-      { (ground.status === 'ongoing' && checkIsTodayMission(mission.startAt, mission.endAt)) && (
-      <>
-        <UploadArea>
-          {file ? (
-            <Text>{file.name}</Text>
-          ) : (
-            <button onClick={handleButtonClick}>
-              <UploadIcon icon={faUpload} />
-              <span>Upload file</span>
-            </button>
-          )}
-          <FileInput type="file" name="file" ref={fileInputRef} onChange={handleFileChange} />
-        </UploadArea>
-        <Button onClick={handleSubmit}>Submit</Button>
-      </>
-      )}
+      {submitted !== null
+        ? (
+          <>
+            <PreviewImage
+              src={submitted.imageUrl}
+              alt="Selected file"
+            />
+            <Text>{`${submitted.submitAt} 제출 미션`}</Text>
+          </>
+        )
+        : (status === groundStatus.ongoing && checkIsTodayMission()) && (
+          <>
+            <UploadArea>
+              <button onClick={() => fileInputRef.current.click()}>
+                {file ? (
+                  <>
+                    <PreviewImage
+                      src={URL.createObjectURL(file)}
+                      alt="Selected file"
+                    />
+                    <Text>{file.name}</Text>
+                  </>
+                )
+                  : (
+                    <>
+                      <UploadIcon icon={faUpload} />
+                      <span>인증사진 업로드</span>
+                    </>
+                  )}
+              </button>
+              <FileInput type="file" name="file" ref={fileInputRef} onChange={handleFileChange} />
+            </UploadArea>
+            <Button value={mission.missionId} onClick={handleSubmit}>미션 제출하기</Button>
+          </>
+        )}
+
     </Card>
   );
 }

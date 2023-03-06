@@ -26,6 +26,7 @@ module.exports = {
     'no-unused-vars': 'off',
     'max-len': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
+    'no-nested-ternary': 'off',
   },
   settings: {
     'import/resolver': {

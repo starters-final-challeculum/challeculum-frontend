@@ -8,8 +8,8 @@ export function ContextProvider({ children }) {
   const [orderBy, setOrderBy] = useState('created_at');
   const [status, setStatus] = useState('');
   const [platform, setPlatform] = useState('');
-  const [categoryId, setCategoryId] = useState('');
-  const [filter, setFilter] = useState('status:all');
+  const [categoryName, setCategoryName] = useState('');
+  const [filter, setFilter] = useState('');
 
   const generateFilterString = (map) => {
     let filterString = '';
@@ -40,13 +40,13 @@ export function ContextProvider({ children }) {
     setStatus,
     platform,
     setPlatform,
-    categoryId,
-    setCategoryId,
+    categoryName,
+    setCategoryName,
     filter,
     setFilter,
     generateFilterString,
     handleSortByToggle,
-  }), [keyword, sortBy, orderBy, status, platform, categoryId, filter]);
+  }), [keyword, sortBy, orderBy, status, platform, categoryName, filter]);
   return (
     <SearchContext.Provider value={value}>
       {children}

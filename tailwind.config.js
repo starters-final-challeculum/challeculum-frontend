@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['GmarketSansMedium', 'sans-serif'],
+      },
       minWidth: {
         '1/2': '50%',
       },

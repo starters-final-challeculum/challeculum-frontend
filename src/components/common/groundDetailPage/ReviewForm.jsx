@@ -10,7 +10,7 @@ const StarIcon = tw(FaStar)`mr-2 cursor-pointer inline`;
 
 const Textarea = tw.textarea`mb-4 py-2 px-4 border border-gray-300 rounded-md resize-none`;
 
-const Button = tw.button`w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded`;
+const Button = tw.button`w-full bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded`;
 function Rating({ value, onClick }) {
   const stars = [];
 
@@ -50,9 +50,10 @@ export function ReviewForm({ onSubmit }) {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Label htmlFor="rating">Rating</Label>
-      <Rating value={rating} onClick={handleRatingChange} />
-
+      <div className="mb-12">
+        <Label htmlFor="rating">그라운드 평가</Label>
+        <Rating value={rating} onClick={handleRatingChange} />
+      </div>
       <Label htmlFor="comment">Comment</Label>
       <Textarea
         id="comment"
